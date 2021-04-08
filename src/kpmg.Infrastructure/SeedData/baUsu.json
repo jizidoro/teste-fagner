@@ -1,0 +1,29 @@
+[
+  {
+    "id": 20203,
+    "nomeUsu": "AUGUSTO ARAUJO DOS SANTOS",
+    "cpf": "05852608777",
+    "dtNasc": "1900-01-01T00:00:00",
+    "telefone1": "99999999999",
+    "telefone2": "99999999999",
+    "telefone3": "",
+    "idLogradouro": 896204,
+    "nrLogradouro": 0,
+    "cplLogradouro": "",
+    "email": "augusto.santos@d1000varejofarma.com.br",
+    "senha": "-84;5",
+    "ultAltSenha": "2021-04-05T14:06:31.153",
+    "stsUsu": 0,
+    "codCargo": 0,
+    "dtAdmissao": "2020-11-24T00:00:00",
+    "dtDemissao": null,
+    "sexo": 0,
+    "matricula": "",
+    "nomeRede": "CONTRATO DW PROWEB TERCEIRIZADO",
+    "situacaoFolha": "ATIVO",
+    "codLegado": 20203,
+    "idUsuCad": 1,
+    "dtCad": "2020-12-17T12:21:56.617",
+    "dtUltAlt": "2021-04-05T14:06:31.157"
+  }
+]

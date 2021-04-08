@@ -1,0 +1,114 @@
+#region
+
+using System;
+using System.Threading.Tasks;
+using AutoMapper;
+using kpmg.Application.Bases;
+using kpmg.Application.Dtos;
+using kpmg.Application.Filters;
+using kpmg.Application.Interfaces;
+using kpmg.Application.Queries;
+using kpmg.WebApi.Modules.Common.FeatureFlags;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.FeatureManagement.Mvc;
+
+#endregion
+
+namespace kpmg.WebApi.UseCases.V1.AirplaneApi
+{
+    [Authorize]
+    [FeatureGate(CustomFeature.Airplane)]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiController]
+    public class AirplaneController : ControllerBase
+    {
+        private readonly IAirplaneAppService _airplaneAppService;
+        private readonly IMapper _mapper;
+
+        public AirplaneController(
+            IAirplaneAppService airplaneAppService, IMapper mapper)
+        {
+            _airplaneAppService = airplaneAppService;
+            _mapper = mapper;
+        }
+
+        [HttpGet]
+        [Route("listar")]
+        public async Task<IActionResult> Listar([FromQuery] PaginationQuery paginationQuery)
+        {
+            try
+            {
+                var paginationFilter = _mapper.Map<PaginationQuery, PaginationFilter>(paginationQuery);
+
+                var result = await _airplaneAppService.Listar();
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return Ok(new SingleResultDto<AirplaneDto>(e));
+            }
+        }
+
+        [HttpGet]
+        [Route("obter/{id:int}")]
+        public async Task<IActionResult> Obter(int id)
+        {
+            try
+            {
+                var result = await _airplaneAppService.Obter(id);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return Ok(new SingleResultDto<AirplaneDto>(e));
+            }
+        }
+
+        [Route("incluir")]
+        [HttpPost]
+        public async Task<IActionResult> Incluir([FromBody] AirplaneIncluirDto dto)
+        {
+            try
+            {
+                var result = await _airplaneAppService.Incluir(dto);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return Ok(new SingleResultDto<AirplaneDto>(e));
+            }
+        }
+
+        [HttpPut]
+        [Route("editar")]
+        public async Task<IActionResult> Editar([FromBody] AirplaneEditarDto dto)
+        {
+            try
+            {
+                var result = await _airplaneAppService.Editar(dto);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return Ok(new SingleResultDto<AirplaneDto>(e));
+            }
+        }
+
+        [HttpDelete]
+        [Route("excluir/{id:int}")]
+        public async Task<IActionResult> Excluir(int id)
+        {
+            try
+            {
+                var result = await _airplaneAppService.Excluir(id);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return Ok(new SingleResultDto<AirplaneDto>(e));
+            }
+        }
+    }
+}
