@@ -11,8 +11,8 @@ namespace kpmg.Core.UsuarioSistemaCore.Validation
 {
     public class UsuarioSistemaValidarEsquecerSenha : EntityValidation<UsuarioSistema>
     {
-        private readonly UsuarioSistemaValidarEditar _usuarioSistemaValidarEditar;
         private readonly IUsuarioSistemaRepository _repository;
+        private readonly UsuarioSistemaValidarEditar _usuarioSistemaValidarEditar;
 
         public UsuarioSistemaValidarEsquecerSenha(IUsuarioSistemaRepository repository,
             UsuarioSistemaValidarEditar usuarioSistemaValidarEditar)

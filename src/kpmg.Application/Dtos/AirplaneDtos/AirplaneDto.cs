@@ -5,7 +5,7 @@ using kpmg.Application.Bases;
 
 #endregion
 
-namespace kpmg.Application.Dtos
+namespace kpmg.Application.Dtos.AirplaneDtos
 {
     public class AirplaneDto : EntityDto
     {

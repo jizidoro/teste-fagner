@@ -2,12 +2,12 @@
 
 using System;
 using System.Threading.Tasks;
-using kpmg.Core.UsuarioSistemaCore;
-using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Core.Helpers.Bases;
 using kpmg.Core.Helpers.Extensions;
 using kpmg.Core.Helpers.Interfaces;
 using kpmg.Core.Helpers.Models.Results;
+using kpmg.Core.UsuarioSistemaCore;
+using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Domain.Models;
 
 #endregion
@@ -16,11 +16,12 @@ namespace kpmg.Core.SecurityCore.Usecase
 {
     public class AtualizarSenhaExpiradaUsecase : Service
     {
-        private readonly UsuarioSistemaValidarEditar _usuarioSistemaValidarEditar;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IUsuarioSistemaRepository _repository;
+        private readonly UsuarioSistemaValidarEditar _usuarioSistemaValidarEditar;
 
-        public AtualizarSenhaExpiradaUsecase(IUsuarioSistemaRepository repository, UsuarioSistemaValidarEditar usuarioSistemaValidarEditar,
+        public AtualizarSenhaExpiradaUsecase(IUsuarioSistemaRepository repository,
+            UsuarioSistemaValidarEditar usuarioSistemaValidarEditar,
             IPasswordHasher passwordHasher, IUnitOfWork uow)
             : base(uow)
         {

@@ -19,13 +19,16 @@ namespace kpmg.IntegrationTests.Helpers
         {
             var assembly = Assembly.GetAssembly(typeof(JsonUtilities));
 
-            db.Airplanes.AddRange(
-                JsonUtilities.GetListFromJson<Airplane>(
-                    assembly.GetManifestResourceStream($"{JsonPath}.airplane.json")));
+            if (assembly is not null)
+            {
+                db.Airplanes.AddRange(
+                    JsonUtilities.GetListFromJson<Airplane>(
+                        assembly.GetManifestResourceStream($"{JsonPath}.airplane.json")));
 
-            db.UsuarioSistemas.AddRange(
-                JsonUtilities.GetListFromJson<UsuarioSistema>(
-                    assembly.GetManifestResourceStream($"{JsonPath}.usuarioSistema.json")));
+                db.UsuarioSistemas.AddRange(
+                    JsonUtilities.GetListFromJson<UsuarioSistema>(
+                        assembly.GetManifestResourceStream($"{JsonPath}.usuarioSistema.json")));
+            }
 
             db.SaveChanges();
         }

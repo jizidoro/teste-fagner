@@ -1,6 +1,6 @@
 ﻿#region
 
-using kpmg.Application.Dtos;
+using kpmg.Application.Dtos.AirplaneDtos;
 
 #endregion
 

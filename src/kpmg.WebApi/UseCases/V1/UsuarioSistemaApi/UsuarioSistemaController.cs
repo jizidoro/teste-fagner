@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using kpmg.Application.Bases;
-using kpmg.Application.Dtos;
+using kpmg.Application.Dtos.UsuarioSistemaDtos;
 using kpmg.Application.Filters;
 using kpmg.Application.Interfaces;
 using kpmg.Application.Queries;
@@ -23,8 +23,8 @@ namespace kpmg.WebApi.UseCases.V1.UsuarioSistemaApi
     [ApiController]
     public class UsuarioSistemaController : ControllerBase
     {
-        private readonly IUsuarioSistemaAppService _usuarioSistemaAppService;
         private readonly IMapper _mapper;
+        private readonly IUsuarioSistemaAppService _usuarioSistemaAppService;
 
         public UsuarioSistemaController(
             IUsuarioSistemaAppService usuarioSistemaAppService, IMapper mapper)

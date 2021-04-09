@@ -1,15 +1,10 @@
 ﻿#region
 
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using kpmg.Core.UsuarioSistemaCore;
-using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Core.Helpers.Extensions;
 using kpmg.Core.Helpers.Interfaces;
 using kpmg.Core.Helpers.Models.Results;
 using kpmg.Core.Helpers.Models.Validations;
+using kpmg.Core.UsuarioSistemaCore;
 using kpmg.Domain.Models;
 
 #endregion
@@ -18,8 +13,8 @@ namespace kpmg.Core.SecurityCore.Validation
 {
     public class UsuarioSistemaValidarSenha : EntityValidation<UsuarioSistema>
     {
-        private readonly IUsuarioSistemaRepository _usuarioSistemaRepository;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IUsuarioSistemaRepository _usuarioSistemaRepository;
 
         public UsuarioSistemaValidarSenha(IUsuarioSistemaRepository usuarioSistemaRepository,
             IPasswordHasher passwordHasher)

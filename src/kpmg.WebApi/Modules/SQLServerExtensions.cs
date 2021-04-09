@@ -1,8 +1,8 @@
 #region
 
 using kpmg.Core.AirplaneCore;
-using kpmg.Core.UsuarioSistemaCore;
 using kpmg.Core.Helpers.Interfaces;
+using kpmg.Core.UsuarioSistemaCore;
 using kpmg.Core.Views.VBaUsuPermissaoCore;
 using kpmg.Infrastructure.DataAccess;
 using kpmg.Infrastructure.Repositories;

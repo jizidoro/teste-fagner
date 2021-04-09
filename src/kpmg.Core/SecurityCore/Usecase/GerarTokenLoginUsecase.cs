@@ -3,13 +3,11 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using kpmg.Core.SecurityCore.Validation;
 using kpmg.Core.Utils;
-using kpmg.Core.Views.VBaUsuPermissaoCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -19,8 +17,8 @@ namespace kpmg.Core.SecurityCore.Usecase
 {
     public class GerarTokenLoginUsecase : IGerarTokenLoginUsecase
     {
-        private readonly UsuarioSistemaValidarSenha _usuarioSistemaValidarSenha;
         private readonly IConfiguration _configuration;
+        private readonly UsuarioSistemaValidarSenha _usuarioSistemaValidarSenha;
 
 
         public GerarTokenLoginUsecase(
@@ -52,7 +50,7 @@ namespace kpmg.Core.SecurityCore.Usecase
                         {
                             Chave = chave,
                             Nomeario = usuSelecionado.Nome,
-                            Papeis = new List<string> {string.IsNullOrEmpty(perfil) ? "" : perfil},
+                            Papeis = new List<string> {string.IsNullOrEmpty(perfil) ? "" : perfil}
                         };
 
                         user.Token = GenerateToken(user);

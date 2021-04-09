@@ -2,6 +2,8 @@
 
 using AutoMapper;
 using kpmg.Application.Dtos;
+using kpmg.Application.Dtos.AirplaneDtos;
+using kpmg.Application.Dtos.UsuarioSistemaDtos;
 using kpmg.Domain.Models;
 
 #endregion

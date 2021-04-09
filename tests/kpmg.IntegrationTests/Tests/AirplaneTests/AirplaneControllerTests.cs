@@ -2,15 +2,15 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using kpmg.Application.Dtos;
+using kpmg.Application.Dtos.AirplaneDtos;
 using kpmg.Application.Services;
 using kpmg.Core.AirplaneCore.Usecase;
 using kpmg.Core.AirplaneCore.Validation;
 using kpmg.Domain.Models;
 using kpmg.Infrastructure.DataAccess;
 using kpmg.Infrastructure.Repositories;
-using kpmg.WebApi.UseCases.V1.AirplaneApi;
 using kpmg.IntegrationTests.Helpers;
+using kpmg.WebApi.UseCases.V1.AirplaneApi;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
@@ -44,10 +44,10 @@ namespace kpmg.IntegrationTests.Tests.AirplaneTests
 
 
         [Fact]
-        public async Task Incluir_ChangesDatabase()
+        public async Task Incluir_Airplane()
         {
             var options = new DbContextOptionsBuilder<KpmgContext>()
-                .UseInMemoryDatabase("test_database_change_database_airplane")
+                .UseInMemoryDatabase("test_database_memoria_incluir_airplane")
                 .Options;
 
 
@@ -66,10 +66,10 @@ namespace kpmg.IntegrationTests.Tests.AirplaneTests
         }
 
         [Fact]
-        public async Task Get_ReturnsAirplane()
+        public async Task Obter_Airplane()
         {
             var options = new DbContextOptionsBuilder<KpmgContext>()
-                .UseInMemoryDatabase("test_database_return_airplane")
+                .UseInMemoryDatabase("test_database_memoria_obter_airplane")
                 .Options;
 
             Airplane airplane = null;

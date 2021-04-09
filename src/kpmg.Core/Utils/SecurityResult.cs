@@ -1,23 +1,26 @@
-﻿namespace kpmg.Core.Utils
+﻿using kpmg.Domain.Enums;
+
+namespace kpmg.Core.Utils
 {
     public class SecurityResult
     {
         public SecurityResult(User user)
         {
             User = user;
+            Code = (int)EnumResultadoAcao.Sucesso; 
             Success = true;
         }
 
-        public SecurityResult(int errorCode, string errorMessage)
+        public SecurityResult(int code, string message)
         {
-            ErrorCode = errorCode;
-            ErrorMessage = errorMessage;
+            Code = code;
+            ErrorMessage = message;
             Success = false;
         }
 
         public User User { get; set; }
         public bool Success { get; set; }
-        public int ErrorCode { get; set; }
+        public int Code { get; set; }
         public string ErrorMessage { get; set; }
         public string Mensagem { get; set; }
     }

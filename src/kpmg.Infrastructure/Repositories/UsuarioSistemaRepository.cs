@@ -7,7 +7,6 @@ using kpmg.Domain.Bases;
 using kpmg.Domain.Models;
 using kpmg.Infrastructure.Bases;
 using kpmg.Infrastructure.DataAccess;
-using Microsoft.EntityFrameworkCore;
 
 #endregion
 

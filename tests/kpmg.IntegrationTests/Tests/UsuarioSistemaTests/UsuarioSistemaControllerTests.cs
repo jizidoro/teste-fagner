@@ -2,9 +2,10 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using kpmg.Application.Dtos;
+using kpmg.Application.Dtos.UsuarioSistemaDtos;
 using kpmg.Application.Services;
 using kpmg.Core.Helpers.Extensions;
+using kpmg.Core.Helpers.Models;
 using kpmg.Core.UsuarioSistemaCore.Usecase;
 using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Domain.Models;
@@ -18,7 +19,7 @@ using Xunit.Abstractions;
 
 #endregion
 
-namespace kpmg.IntegrationTests.Tests.BaUsuTests
+namespace kpmg.IntegrationTests.Tests.UsuarioSistemaTests
 {
     public sealed class UsuarioSistemaControllerTests
     {
@@ -33,18 +34,24 @@ namespace kpmg.IntegrationTests.Tests.BaUsuTests
         {
             var uow = new UnitOfWork(context);
             var usuarioSistemaRepository = new UsuarioSistemaRepository(context);
+            var passwordHasher = new PasswordHasher(new HashingOptions());
 
             var usuarioSistemaValidarEditar =
                 new UsuarioSistemaValidarEditar(usuarioSistemaRepository);
             var usuarioSistemaValidarExcluir = new UsuarioSistemaValidarExcluir(usuarioSistemaRepository);
             var usuarioSistemaValidarIncluir =
                 new UsuarioSistemaValidarIncluir(usuarioSistemaRepository);
-            var usuarioSistemaIncluirUsecase = new UsuarioSistemaIncluirUsecase(usuarioSistemaRepository, usuarioSistemaValidarIncluir, uow);
-            var usuarioSistemaExcluirUsecase = new UsuarioSistemaExcluirUsecase(usuarioSistemaRepository, usuarioSistemaValidarExcluir, uow);
-            var usuarioSistemaEditarUsecase = new UsuarioSistemaEditarUsecase(usuarioSistemaRepository, usuarioSistemaValidarEditar, uow);
+            var usuarioSistemaIncluirUsecase =
+                new UsuarioSistemaIncluirUsecase(usuarioSistemaRepository, usuarioSistemaValidarIncluir, passwordHasher,
+                    uow);
+            var usuarioSistemaExcluirUsecase =
+                new UsuarioSistemaExcluirUsecase(usuarioSistemaRepository, usuarioSistemaValidarExcluir, uow);
+            var usuarioSistemaEditarUsecase =
+                new UsuarioSistemaEditarUsecase(usuarioSistemaRepository, usuarioSistemaValidarEditar, uow);
             var mapper = MapperHelper.ConfigMapper();
 
-            var usuarioSistemaAppService = new UsuarioSistemaAppService(usuarioSistemaRepository, usuarioSistemaEditarUsecase, usuarioSistemaIncluirUsecase,
+            var usuarioSistemaAppService = new UsuarioSistemaAppService(usuarioSistemaRepository,
+                usuarioSistemaEditarUsecase, usuarioSistemaIncluirUsecase,
                 usuarioSistemaExcluirUsecase, mapper);
 
             return new UsuarioSistemaController(usuarioSistemaAppService, mapper);
@@ -52,19 +59,21 @@ namespace kpmg.IntegrationTests.Tests.BaUsuTests
 
 
         [Fact]
-        public async Task Incluir_ChangesDatabase()
+        public async Task Incluir_UsuarioSistema()
         {
             var options = new DbContextOptionsBuilder<KpmgContext>()
-                .UseInMemoryDatabase("test_database_change_database_usuarioSistema")
+                .UseInMemoryDatabase("test_database_memoria_incluir_usuario_sistema")
                 .Options;
 
 
             var teste = new UsuarioSistemaIncluirDto
             {
-                Id = 20204,
-                Nome = "20204",
-                Senha = "05852608777",
-                Matricula = "123456",
+                Id = 1,
+                Nome = "111",
+                Email = "777@teste",
+                Senha = "123456",
+                Situacao = true,
+                Matricula = "123",
             };
 
 
@@ -76,10 +85,10 @@ namespace kpmg.IntegrationTests.Tests.BaUsuTests
         }
 
         [Fact]
-        public async Task Get_ReturnsUsuarioSistema()
+        public async Task Obter_UsuarioSistema()
         {
             var options = new DbContextOptionsBuilder<KpmgContext>()
-                .UseInMemoryDatabase("test_database_return_usuarioSistema")
+                .UseInMemoryDatabase("test_database_memoria_obter_usuario_sistema")
                 .Options;
 
             UsuarioSistema usuarioSistema = null;
@@ -88,7 +97,7 @@ namespace kpmg.IntegrationTests.Tests.BaUsuTests
             await context.Database.EnsureCreatedAsync();
             Utilities.InitializeDbForTests(context);
             var repository = new UsuarioSistemaRepository(context);
-            usuarioSistema = await repository.GetById(20203);
+            usuarioSistema = await repository.GetById(1);
             Assert.NotNull(usuarioSistema);
         }
     }

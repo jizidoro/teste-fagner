@@ -3,6 +3,8 @@
 using AutoMapper;
 using kpmg.Application.Bases;
 using kpmg.Application.Dtos;
+using kpmg.Application.Dtos.AirplaneDtos;
+using kpmg.Application.Dtos.UsuarioSistemaDtos;
 using kpmg.Domain.Bases;
 using kpmg.Domain.Models;
 

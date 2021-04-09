@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using kpmg.Application.Bases;
-using kpmg.Application.Dtos;
+using kpmg.Application.Dtos.UsuarioSistemaDtos;
 using kpmg.Application.Filters;
 using kpmg.Application.Interfaces;
 using kpmg.Application.Utils;

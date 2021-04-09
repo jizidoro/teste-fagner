@@ -1,20 +1,23 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using kpmg.Core.Helpers.Models;
-using Microsoft.Extensions.Options;
+
+#endregion
 
 namespace kpmg.Core.Helpers.Extensions
 {
     public sealed class PasswordHasher : IPasswordHasher
     {
+        private const int SaltSize = 16; // 128 bit 
+        private const int KeySize = 32; // 256 bit
+
         public PasswordHasher(HashingOptions options)
         {
             Options = options;
         }
-
-        private const int SaltSize = 16; // 128 bit 
-        private const int KeySize = 32; // 256 bit
 
         private HashingOptions Options { get; }
 

@@ -4,12 +4,10 @@ using kpmg.Application.Interfaces;
 using kpmg.Application.Services;
 using kpmg.Core.AirplaneCore.Usecase;
 using kpmg.Core.AirplaneCore.Validation;
-using kpmg.Core.Helpers.Extensions;
-using kpmg.Core.Helpers.Models;
-using kpmg.Core.UsuarioSistemaCore.Usecase;
-using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Core.SecurityCore.Usecase;
 using kpmg.Core.SecurityCore.Validation;
+using kpmg.Core.UsuarioSistemaCore.Usecase;
+using kpmg.Core.UsuarioSistemaCore.Validation;
 using Microsoft.Extensions.DependencyInjection;
 
 #endregion

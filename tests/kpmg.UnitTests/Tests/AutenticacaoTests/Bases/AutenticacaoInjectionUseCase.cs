@@ -12,11 +12,10 @@ using kpmg.Infrastructure.Repositories;
 using kpmg.Infrastructure.Repositories.Views;
 using kpmg.UnitTests.Helpers;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 
 #endregion
 
-namespace kpmg.UnitTests.Tests.BaUsuTests.Bases
+namespace kpmg.UnitTests.Tests.AutenticacaoTests.Bases
 {
     public sealed class AutenticacaoInjectionUseCase
     {
@@ -44,7 +43,8 @@ namespace kpmg.UnitTests.Tests.BaUsuTests.Bases
                 );
             var passwordHasher = new PasswordHasher(new HashingOptions());
 
-            return new EsquecerSenhaUsecase(usuarioSistemaCoreRepository, usuarioSistemaValidarEsquecerSenha, passwordHasher, uow);
+            return new EsquecerSenhaUsecase(usuarioSistemaCoreRepository, usuarioSistemaValidarEsquecerSenha,
+                passwordHasher, uow);
         }
 
         public GerarTokenLoginUsecase ObterGerarTokenLoginUsecase(KpmgContext context)
@@ -61,7 +61,7 @@ namespace kpmg.UnitTests.Tests.BaUsuTests.Bases
 
             var uow = new UnitOfWork(context);
             var usuarioSistemaCoreRepository = new UsuarioSistemaRepository(context);
-            
+
             var passwordHasher = new PasswordHasher(new HashingOptions());
 
             var usuarioSistemaValidarSenha =

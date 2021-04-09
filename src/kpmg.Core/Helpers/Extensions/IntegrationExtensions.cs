@@ -32,7 +32,7 @@ namespace kpmg.Core.Helpers.Extensions
 
             return cifrado;
         }
-        
+
         /// <param name="texto">Texto a ser decifrado.</param>
         /// <returns></returns>
         public static string Decifrar(string texto)

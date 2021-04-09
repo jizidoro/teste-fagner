@@ -1,11 +1,9 @@
 #region
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using kpmg.Domain.Bases;
-using kpmg.Domain.CustomDataAnnotations;
 
 #endregion
 
@@ -27,7 +25,7 @@ namespace kpmg.Domain.Models
         [MaxLength(1023)]
         [Required(ErrorMessage = "SENHA is required")]
         public string Senha { get; set; } // varchar(1023), not null
-        
+
         [Column("USSI_ST_SITUACAO", TypeName = "int")]
         [Required(ErrorMessage = "STS USU is required")]
         public bool Situacao { get; set; } // int, not null

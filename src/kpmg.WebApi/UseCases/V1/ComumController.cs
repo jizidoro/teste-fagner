@@ -3,7 +3,8 @@
 using System;
 using System.Threading.Tasks;
 using kpmg.Application.Bases;
-using kpmg.Application.Dtos;
+using kpmg.Application.Dtos.AirplaneDtos;
+using kpmg.Application.Dtos.UsuarioSistemaDtos;
 using kpmg.Application.Interfaces;
 using kpmg.Domain.Models;
 using kpmg.WebApi.Modules.Common.FeatureFlags;
@@ -21,8 +22,8 @@ namespace kpmg.WebApi.UseCases.V1
     [ApiController]
     public class ComumController : Controller
     {
-        private readonly IUsuarioSistemaAppService _usuarioSistemaAppService;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IUsuarioSistemaAppService _usuarioSistemaAppService;
 
         public ComumController(IServiceProvider serviceProvider, IUsuarioSistemaAppService usuarioSistemaAppService)
         {

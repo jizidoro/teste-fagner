@@ -2,7 +2,7 @@
 
 using FluentValidation;
 using kpmg.Application.Bases;
-using kpmg.Application.Dtos;
+using kpmg.Application.Dtos.UsuarioSistemaDtos;
 using kpmg.Application.Messages;
 
 #endregion
@@ -38,7 +38,7 @@ namespace kpmg.Application.Validations.BaUsuValitation
             RuleFor(v => v.Senha)
                 .NotEmpty().WithMessage(MensagensAplicacao.CAMPO_OBRIGATORIO)
                 .MinimumLength(4).WithMessage(MensagensAplicacao.TAMANHO_ESPECIFICO_CAMPO)
-                .MaximumLength(64).WithMessage(MensagensAplicacao.TAMANHO_ESPECIFICO_CAMPO)
+                .MaximumLength(127).WithMessage(MensagensAplicacao.TAMANHO_ESPECIFICO_CAMPO)
                 .WithName("Senha");
         }
 
@@ -50,7 +50,5 @@ namespace kpmg.Application.Validations.BaUsuValitation
                 .MaximumLength(255).WithMessage(MensagensAplicacao.TAMANHO_ESPECIFICO_CAMPO)
                 .WithName("Matricula");
         }
-
-
     }
 }

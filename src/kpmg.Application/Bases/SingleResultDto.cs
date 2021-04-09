@@ -36,7 +36,7 @@ namespace kpmg.Application.Bases
 
         public SingleResultDto(SecurityResult erroSecurity)
         {
-            Codigo = erroSecurity.ErrorCode;
+            Codigo = erroSecurity.Code;
             Sucesso = false;
             Mensagem = erroSecurity.ErrorMessage;
             Data = null;

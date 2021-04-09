@@ -1,15 +1,16 @@
 ﻿#region
 
-using kpmg.Application.Dtos;
+using kpmg.Application.Dtos.UsuarioSistemaDtos;
 
 #endregion
 
 namespace kpmg.Application.Validations.BaUsuValitation
 {
-    public class UsuarioSistemaIncluirValidation : UsuarioSistemaValidation<UsuarioSistemaIncluirDto>
+    public class UsuarioSistemaEditarValidation : UsuarioSistemaValidation<UsuarioSistemaEditarDto>
     {
-        public UsuarioSistemaIncluirValidation()
+        public UsuarioSistemaEditarValidation()
         {
+            ValidarId();
             ValidarNome();
             ValidarEmail();
             ValidarSenha();

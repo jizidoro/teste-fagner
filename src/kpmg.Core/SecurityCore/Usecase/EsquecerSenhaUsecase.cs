@@ -2,12 +2,12 @@
 
 using System;
 using System.Threading.Tasks;
-using kpmg.Core.UsuarioSistemaCore;
-using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Core.Helpers.Bases;
 using kpmg.Core.Helpers.Extensions;
 using kpmg.Core.Helpers.Interfaces;
 using kpmg.Core.Helpers.Models.Results;
+using kpmg.Core.UsuarioSistemaCore;
+using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Domain.Models;
 
 #endregion
@@ -16,11 +16,12 @@ namespace kpmg.Core.SecurityCore.Usecase
 {
     public class EsquecerSenhaUsecase : Service
     {
-        private readonly UsuarioSistemaValidarEsquecerSenha _usuarioSistemaValidarEsquecerSenha;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IUsuarioSistemaRepository _repository;
+        private readonly UsuarioSistemaValidarEsquecerSenha _usuarioSistemaValidarEsquecerSenha;
 
-        public EsquecerSenhaUsecase(IUsuarioSistemaRepository repository, UsuarioSistemaValidarEsquecerSenha usuarioSistemaValidarEsquecerSenha,
+        public EsquecerSenhaUsecase(IUsuarioSistemaRepository repository,
+            UsuarioSistemaValidarEsquecerSenha usuarioSistemaValidarEsquecerSenha,
             IPasswordHasher passwordHasher, IUnitOfWork uow)
             : base(uow)
         {

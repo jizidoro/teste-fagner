@@ -1,9 +1,9 @@
 ﻿#region
 
-using kpmg.Application.Bases;
-using kpmg.Application.Dtos;
-using kpmg.Application.Messages;
 using FluentValidation;
+using kpmg.Application.Bases;
+using kpmg.Application.Dtos.AirplaneDtos;
+using kpmg.Application.Messages;
 
 #endregion
 

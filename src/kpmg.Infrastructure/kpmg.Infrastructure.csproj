@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <None Remove="SeedData\Autenticacao.json" />
+    <None Remove="SeedData\usuarioSistema.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="SeedData\usuarioSistema.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="SeedData\airplane.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

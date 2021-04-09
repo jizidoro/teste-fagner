@@ -7,7 +7,7 @@ using kpmg.UnitTests.Helpers;
 
 #endregion
 
-namespace kpmg.UnitTests.Tests.BaUsuTests.Bases
+namespace kpmg.UnitTests.Tests.AutenticacaoTests.Bases
 {
     public class AutenticacaoInjectionAppService
     {
@@ -26,7 +26,8 @@ namespace kpmg.UnitTests.Tests.BaUsuTests.Bases
             var obterGerarTokenLoginUsecaseUsecase =
                 _autenticacaoInjectionUseCase.ObterGerarTokenLoginUsecase(context);
 
-            var autenticacaoAppService = new AutenticacaoAppService(vUsuarioSistemaRepository, oterAtualizarSenhaExpiradaUsecase,
+            var autenticacaoAppService = new AutenticacaoAppService(vUsuarioSistemaRepository,
+                oterAtualizarSenhaExpiradaUsecase,
                 obterGerarTokenLoginUsecaseUsecase, obterEsquecerSenhaUsecase, mapper);
             return autenticacaoAppService;
         }

@@ -2,7 +2,7 @@
 
 using System.Threading.Tasks;
 using kpmg.Application.Bases;
-using kpmg.Application.Dtos;
+using kpmg.Application.Dtos.UsuarioSistemaDtos;
 using kpmg.Application.Filters;
 using kpmg.Application.Utils;
 

@@ -2,11 +2,11 @@
 
 using System;
 using System.Threading.Tasks;
-using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Core.Helpers.Bases;
 using kpmg.Core.Helpers.Interfaces;
 using kpmg.Core.Helpers.Messages;
 using kpmg.Core.Helpers.Models.Results;
+using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Domain.Models;
 
 #endregion
@@ -15,10 +15,11 @@ namespace kpmg.Core.UsuarioSistemaCore.Usecase
 {
     public class UsuarioSistemaExcluirUsecase : Service
     {
-        private readonly UsuarioSistemaValidarExcluir _usuarioSistemaValidarExcluir;
         private readonly IUsuarioSistemaRepository _repository;
+        private readonly UsuarioSistemaValidarExcluir _usuarioSistemaValidarExcluir;
 
-        public UsuarioSistemaExcluirUsecase(IUsuarioSistemaRepository repository, UsuarioSistemaValidarExcluir usuarioSistemaValidarExcluir,
+        public UsuarioSistemaExcluirUsecase(IUsuarioSistemaRepository repository,
+            UsuarioSistemaValidarExcluir usuarioSistemaValidarExcluir,
             IUnitOfWork uow)
             : base(uow)
         {

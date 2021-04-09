@@ -17,7 +17,6 @@ namespace kpmg.Infrastructure.Mappings
 
             builder.HasIndex(c => c.Email).HasDatabaseName("IX_USUARIO_SISTEMA_EMAIL").IsUnique();
             builder.HasIndex(c => c.Matricula).HasDatabaseName("IX_USUARIO_SISTEMA_MATRICULA").IsUnique();
-
         }
     }
 }
