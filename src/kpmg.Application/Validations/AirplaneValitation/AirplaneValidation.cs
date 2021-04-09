@@ -34,12 +34,12 @@ namespace kpmg.Application.Validations.AirplaneValitation
                 .WithName("Modelo");
         }
 
-        protected void ValidarQuantidadePassageiros()
+        protected void ValidarQuantidadePassageiro()
         {
-            RuleFor(v => v.QuantidadePassageiros)
+            RuleFor(v => v.QuantidadePassageiro)
                 .NotEmpty().WithMessage(MensagensAplicacao.CAMPO_OBRIGATORIO)
                 .GreaterThanOrEqualTo(0).WithMessage(MensagensAplicacao.CAMPO_MAIOR_IGUAL_ZERO)
-                .WithName("QuantidadePassageiros");
+                .WithName("QuantidadePassageiro");
         }
     }
 }

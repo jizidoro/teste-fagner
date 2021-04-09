@@ -20,10 +20,10 @@ namespace kpmg.Application.AutoMapper
             CreateMap<Airplane, AirplaneEditarDto>();
             CreateMap<Airplane, AirplaneDto>();
 
-            CreateMap<BaUsu, BaUsuEditarDto>();
-            CreateMap<BaUsu, BaUsuDto>();
+            CreateMap<UsuarioSistema, UsuarioSistemaEditarDto>();
+            CreateMap<UsuarioSistema, UsuarioSistemaDto>();
 
-            CreateMap<BaUsu, AutenticacaoDto>()
+            CreateMap<UsuarioSistema, AutenticacaoDto>()
                 .ForMember(dest => dest.Chave, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Senha, opt => opt.MapFrom(src => src.Senha));
         }

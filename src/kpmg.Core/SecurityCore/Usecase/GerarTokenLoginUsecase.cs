@@ -7,8 +7,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using kpmg.Core.BaCargoCore;
-using kpmg.Core.BaUsuFilialCore;
 using kpmg.Core.SecurityCore.Validation;
 using kpmg.Core.Utils;
 using kpmg.Core.Views.VBaUsuPermissaoCore;
@@ -21,67 +19,54 @@ namespace kpmg.Core.SecurityCore.Usecase
 {
     public class GerarTokenLoginUsecase : IGerarTokenLoginUsecase
     {
-        private readonly IBaCargoRepository _baCargoRepository;
-        private readonly IBaUsuFilialRepository _baUsuFilialRepository;
-        private readonly BaUsuValidarSenha _baUsuValidarSenha;
+        private readonly UsuarioSistemaValidarSenha _usuarioSistemaValidarSenha;
         private readonly IConfiguration _configuration;
-        private readonly IVBaUsuPermissaoRepository _vBaUsuPermissaoRepository;
 
 
         public GerarTokenLoginUsecase(
             IConfiguration configuration,
-            BaUsuValidarSenha baUsuValidarSenha,
-            IBaCargoRepository baCargoRepository,
-            IBaUsuFilialRepository baUsuFilialRepository,
-            IVBaUsuPermissaoRepository vBaUsuPermissaoRepository
+            UsuarioSistemaValidarSenha usuarioSistemaValidarSenha
         )
         {
             _configuration = configuration;
-            _baUsuValidarSenha = baUsuValidarSenha;
-            _baCargoRepository = baCargoRepository;
-            _baUsuFilialRepository = baUsuFilialRepository;
-            _vBaUsuPermissaoRepository = vBaUsuPermissaoRepository;
+            _usuarioSistemaValidarSenha = usuarioSistemaValidarSenha;
         }
 
         public async Task<SecurityResult> Execute(string chave, string senha)
         {
-            var result = await Task.Run(() =>
+            var success = int.TryParse(chave, out var number);
+            if (success)
             {
-                var resultSenha = _baUsuValidarSenha.Execute(chave, senha).Result;
-
-                if (resultSenha.Sucesso)
+                var result = await Task.Run(() =>
                 {
-                    var usuSelecionado = resultSenha.Data;
-                    var cargoUsuario = _baCargoRepository.ObterPorUsuCodCargo(usuSelecionado.CodCargo);
-                    var perfil = "";
-                    if (cargoUsuario.Result != null)
+                    var resultSenha = _usuarioSistemaValidarSenha.Execute(number, senha);
+
+
+                    if (resultSenha.Sucesso)
                     {
-                        perfil = cargoUsuario.Result.BaTipoCargo?.DsTipoCargo;
+                        var usuSelecionado = resultSenha.Data;
+
+                        var perfil = "Role";
+
+                        var user = new User
+                        {
+                            Chave = chave,
+                            Nomeario = usuSelecionado.Nome,
+                            Papeis = new List<string> {string.IsNullOrEmpty(perfil) ? "" : perfil},
+                        };
+
+                        user.Token = GenerateToken(user);
+
+                        return new SecurityResult(user);
                     }
 
-                    var permissoes = _vBaUsuPermissaoRepository.ListarPorIdUsu(usuSelecionado.Id)
-                        .Select(x => x.Permissao.ToString()).ToList();
-                    var filiais = _baUsuFilialRepository.ListarFilialPorIdUsu(usuSelecionado.Id)
-                        .Select(x => x.IdFilial.ToString()).ToList();
+                    return new SecurityResult(resultSenha.Codigo, resultSenha.Mensagem);
+                });
 
-                    var user = new User
-                    {
-                        Chave = chave,
-                        NomeUsuario = usuSelecionado.NomeUsu,
-                        Papeis = new List<string> {string.IsNullOrEmpty(perfil) ? "" : perfil},
-                        Permissoes = permissoes,
-                        Filiais = filiais
-                    };
+                return result;
+            }
 
-                    user.Token = GenerateToken(user);
-
-                    return new SecurityResult(user);
-                }
-
-                return new SecurityResult(resultSenha.Codigo, resultSenha.Mensagem);
-            });
-
-            return result;
+            return new SecurityResult(400, "Erro na chave do usuario");
         }
 
         private string GenerateToken(User user)
@@ -93,22 +78,12 @@ namespace kpmg.Core.SecurityCore.Usecase
             var clains = new List<Claim>
             {
                 new(ClaimTypes.Name, user.Chave),
-                new("Nome", user.NomeUsuario)
+                new("Nome", user.Nomeario)
             };
 
             foreach (var role in user.Papeis)
             {
                 clains.Add(new Claim(ClaimTypes.Role, role));
-            }
-
-            foreach (var resource in user.Permissoes)
-            {
-                clains.Add(new Claim("Permissao", resource));
-            }
-
-            foreach (var filial in user.Filiais)
-            {
-                clains.Add(new Claim("Filial", filial));
             }
 
             var tokenDescriptor = new SecurityTokenDescriptor

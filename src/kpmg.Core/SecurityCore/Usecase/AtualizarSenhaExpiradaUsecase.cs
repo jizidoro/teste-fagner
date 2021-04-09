@@ -2,8 +2,8 @@
 
 using System;
 using System.Threading.Tasks;
-using kpmg.Core.BaUsuCore;
-using kpmg.Core.BaUsuCore.Validation;
+using kpmg.Core.UsuarioSistemaCore;
+using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Core.Helpers.Bases;
 using kpmg.Core.Helpers.Extensions;
 using kpmg.Core.Helpers.Interfaces;
@@ -16,22 +16,24 @@ namespace kpmg.Core.SecurityCore.Usecase
 {
     public class AtualizarSenhaExpiradaUsecase : Service
     {
-        private readonly BaUsuValidarEditar _baUsuValidarEditar;
-        private readonly IBaUsuRepository _repository;
+        private readonly UsuarioSistemaValidarEditar _usuarioSistemaValidarEditar;
+        private readonly IPasswordHasher _passwordHasher;
+        private readonly IUsuarioSistemaRepository _repository;
 
-        public AtualizarSenhaExpiradaUsecase(IBaUsuRepository repository, BaUsuValidarEditar baUsuValidarEditar,
-            IUnitOfWork uow)
+        public AtualizarSenhaExpiradaUsecase(IUsuarioSistemaRepository repository, UsuarioSistemaValidarEditar usuarioSistemaValidarEditar,
+            IPasswordHasher passwordHasher, IUnitOfWork uow)
             : base(uow)
         {
             _repository = repository;
-            _baUsuValidarEditar = baUsuValidarEditar;
+            _usuarioSistemaValidarEditar = usuarioSistemaValidarEditar;
+            _passwordHasher = passwordHasher;
         }
 
-        public async Task<ISingleResult<BaUsu>> Execute(BaUsu entity)
+        public async Task<ISingleResult<UsuarioSistema>> Execute(UsuarioSistema entity)
         {
             try
             {
-                var result = await _baUsuValidarEditar.Execute(entity);
+                var result = await _usuarioSistemaValidarEditar.Execute(entity);
                 if (!result.Sucesso) return result;
 
                 var obj = result.Data;
@@ -44,17 +46,15 @@ namespace kpmg.Core.SecurityCore.Usecase
             }
             catch (Exception ex)
             {
-                return new SingleResult<BaUsu>(ex);
+                return new SingleResult<UsuarioSistema>(ex);
             }
 
-            return new EditarResult<BaUsu>();
+            return new EditarResult<UsuarioSistema>();
         }
 
-        private void HydrateValues(BaUsu target, BaUsu source)
+        private void HydrateValues(UsuarioSistema target, UsuarioSistema source)
         {
-            target.Senha = ItecIntegrationExtensions.Cifrar(source.Senha);
-            target.UltAltSenha = HorariosFusoExtensions.ObterHorarioBrasilia();
-            target.DtUltAlt = HorariosFusoExtensions.ObterHorarioBrasilia();
+            target.Senha = _passwordHasher.Hash(source.Senha);
         }
     }
 }

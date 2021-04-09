@@ -6,13 +6,9 @@
 
   <ItemGroup>
     <None Remove="SeedData\Autenticacao.json" />
-    <None Remove="SeedData\baUsu.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="SeedData\baUsu.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="SeedData\airplane.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -39,6 +35,12 @@
     <ProjectReference Include="..\kpmg.Application\kpmg.Application.csproj" />
     <ProjectReference Include="..\kpmg.Core\kpmg.Core.csproj" />
     <ProjectReference Include="..\kpmg.Domain\kpmg.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Migrations\20210409032938_incial_Up.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

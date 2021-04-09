@@ -12,7 +12,7 @@ namespace kpmg.Application.Dtos
         public int Id { get; set; }
         public string Codigo { get; set; }
         public string Modelo { get; set; }
-        public int QuantidadePassageiros { get; set; }
+        public int QuantidadePassageiro { get; set; }
         public DateTime DataRegistro { get; set; }
     }
 }

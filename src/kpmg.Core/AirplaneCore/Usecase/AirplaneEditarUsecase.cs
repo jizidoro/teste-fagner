@@ -57,7 +57,7 @@ namespace kpmg.Core.AirplaneCore.Usecase
         private void HydrateValues(Airplane target, Airplane source)
         {
             target.Codigo = source.Codigo;
-            target.QuantidadePassageiros = source.QuantidadePassageiros;
+            target.QuantidadePassageiro = source.QuantidadePassageiro;
             target.Modelo = source.Modelo;
         }
     }

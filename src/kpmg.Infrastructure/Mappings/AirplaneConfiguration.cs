@@ -12,13 +12,10 @@ namespace kpmg.Infrastructure.Mappings
     {
         public void Configure(EntityTypeBuilder<Airplane> builder)
         {
+            builder.Property(b => b.Id).HasColumnName("AIRP_SQ_AIRPLANE").IsRequired();
             builder.HasKey(c => c.Id);
-            builder.Property(c => c.Codigo).HasMaxLength(255).IsRequired();
-            builder.Property(c => c.Modelo).HasMaxLength(255).IsRequired();
-            builder.Property(c => c.QuantidadePassageiros).IsRequired();
-            builder.Property(c => c.DataRegistro).IsRequired();
 
-            builder.HasIndex(c => c.Codigo).HasDatabaseName("IX_Airplanes_Codigo").IsUnique();
+            builder.HasIndex(c => c.Codigo).HasDatabaseName("IX_AIRPLANE_CODIGO").IsUnique();
         }
     }
 }

@@ -6,28 +6,14 @@ using kpmg.Application.Dtos;
 
 namespace kpmg.Application.Validations.BaUsuValitation
 {
-    public class BaUsuIncluirValidation : BaUsuValidation<BaUsuIncluirDto>
+    public class UsuarioSistemaIncluirValidation : UsuarioSistemaValidation<UsuarioSistemaIncluirDto>
     {
-        public BaUsuIncluirValidation()
+        public UsuarioSistemaIncluirValidation()
         {
-            ValidarNomeUsu();
-            ValidarCpf();
-            ValidarTelefone1();
-            ValidarTelefone2();
-            ValidarTelefone3();
-            ValidarIdLogradouro();
-            ValidarCplLogradouro();
-            ValidarNomeRede();
+            ValidarNome();
             ValidarEmail();
             ValidarSenha();
-            ValidarStsUsu();
-            ValidarCodCargo();
-            ValidarDtAdmissao();
             ValidarMatricula();
-            ValidarSituacaoFolha();
-            ValidarIdUsuCad();
-            ValidarDtCad();
-            ValidarNrLogradouro();
         }
     }
 }

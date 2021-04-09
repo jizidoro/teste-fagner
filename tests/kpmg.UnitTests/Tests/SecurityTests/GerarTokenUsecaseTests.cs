@@ -41,12 +41,12 @@ namespace kpmg.UnitTests.Tests.SecurityTests
             Utilities.InitializeDbForTests(context);
 
 
-            var repository = new BaUsuRepository(context);
+            var repository = new UsuarioSistemaRepository(context);
 
             var obterGerarTokenLoginUsecase =
                 _autenticacaoInjectionUseCase.ObterGerarTokenLoginUsecase(context);
-            var result = await obterGerarTokenLoginUsecase.Execute(autenticacao.Chave, autenticacao.Senha);
-            Assert.True(result.Success);
+            var result = await obterGerarTokenLoginUsecase.Execute(testeEntrada.Chave, testeEntrada.Senha);
+            Assert.Equal(expected,result.ErrorCode);
         }
     }
 }

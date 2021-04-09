@@ -34,7 +34,7 @@ namespace kpmg.UnitTests.Tests.SecurityTests
                 .Options;
 
 
-            var teste = new BaUsu
+            var teste = new UsuarioSistema
             {
                 Id = 20203,
                 Senha = "123456"
@@ -44,7 +44,7 @@ namespace kpmg.UnitTests.Tests.SecurityTests
             await context.Database.EnsureCreatedAsync();
             Utilities.InitializeDbForTests(context);
 
-            var repository = new BaUsuRepository(context);
+            var repository = new UsuarioSistemaRepository(context);
             var retornoAntes = await repository.GetById(20203);
 
             var obterAtualizarSenhaExpiradaUsecase =
@@ -54,7 +54,7 @@ namespace kpmg.UnitTests.Tests.SecurityTests
 
             var retornoDepois = await repository.GetById(20203);
 
-            Assert.Equal(1, context.BaUsus.Count());
+            Assert.Equal(1, context.UsuarioSistemas.Count());
         }
     }
 }

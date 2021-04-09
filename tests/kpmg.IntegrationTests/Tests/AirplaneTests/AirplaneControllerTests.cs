@@ -55,7 +55,7 @@ namespace kpmg.IntegrationTests.Tests.AirplaneTests
             {
                 Codigo = "123",
                 Modelo = "234",
-                QuantidadePassageiros = 456
+                QuantidadePassageiro = 456
             };
 
             await using var context = new KpmgContext(options);

@@ -13,8 +13,8 @@ namespace kpmg.Application.AutoMapper
         public DtoToDomainMappingProfile()
         {
             CreateMap<AirplaneIncluirDto, Airplane>();
-            CreateMap<BaUsuIncluirDto, BaUsu>();
-            CreateMap<AutenticacaoDto, BaUsu>()
+            CreateMap<UsuarioSistemaIncluirDto, UsuarioSistema>();
+            CreateMap<AutenticacaoDto, UsuarioSistema>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Chave))
                 .ForMember(dest => dest.Senha, opt => opt.MapFrom(src => src.Senha));
         }

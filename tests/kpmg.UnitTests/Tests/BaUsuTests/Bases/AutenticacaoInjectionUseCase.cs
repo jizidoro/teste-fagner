@@ -2,14 +2,17 @@
 
 using System.Collections.Generic;
 using kpmg.Application.Services;
-using kpmg.Core.BaUsuCore.Validation;
+using kpmg.Core.Helpers.Extensions;
+using kpmg.Core.Helpers.Models;
 using kpmg.Core.SecurityCore.Usecase;
 using kpmg.Core.SecurityCore.Validation;
+using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Infrastructure.DataAccess;
 using kpmg.Infrastructure.Repositories;
 using kpmg.Infrastructure.Repositories.Views;
 using kpmg.UnitTests.Helpers;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 #endregion
 
@@ -20,27 +23,28 @@ namespace kpmg.UnitTests.Tests.BaUsuTests.Bases
         public AtualizarSenhaExpiradaUsecase ObterAtualizarSenhaExpiradaUsecase(KpmgContext context)
         {
             var uow = new UnitOfWork(context);
-            var baUsuCoreRepository = new BaUsuRepository(context);
+            var usuarioSistemaCoreRepository = new UsuarioSistemaRepository(context);
 
-            var baUsuCoreValidarEditar =
-                new BaUsuValidarEditar(baUsuCoreRepository
+            var usuarioSistemaCoreValidarEditar =
+                new UsuarioSistemaValidarEditar(usuarioSistemaCoreRepository
                 );
+            var passwordHasher = new PasswordHasher(new HashingOptions());
 
-            return new AtualizarSenhaExpiradaUsecase(baUsuCoreRepository,
-                baUsuCoreValidarEditar, uow);
+            return new AtualizarSenhaExpiradaUsecase(usuarioSistemaCoreRepository,
+                usuarioSistemaCoreValidarEditar, passwordHasher, uow);
         }
 
         public EsquecerSenhaUsecase ObterEsquecerSenhaUsecase(KpmgContext context)
         {
             var uow = new UnitOfWork(context);
-            var baUsuCoreRepository = new BaUsuRepository(context);
-            var baUsuValidarEditar = new BaUsuValidarEditar(baUsuCoreRepository);
-            var baUsuValidarEsquecerSenha =
-                new BaUsuValidarEsquecerSenha(baUsuCoreRepository, baUsuValidarEditar
+            var usuarioSistemaCoreRepository = new UsuarioSistemaRepository(context);
+            var usuarioSistemaValidarEditar = new UsuarioSistemaValidarEditar(usuarioSistemaCoreRepository);
+            var usuarioSistemaValidarEsquecerSenha =
+                new UsuarioSistemaValidarEsquecerSenha(usuarioSistemaCoreRepository, usuarioSistemaValidarEditar
                 );
+            var passwordHasher = new PasswordHasher(new HashingOptions());
 
-
-            return new EsquecerSenhaUsecase(baUsuCoreRepository, baUsuValidarEsquecerSenha, uow);
+            return new EsquecerSenhaUsecase(usuarioSistemaCoreRepository, usuarioSistemaValidarEsquecerSenha, passwordHasher, uow);
         }
 
         public GerarTokenLoginUsecase ObterGerarTokenLoginUsecase(KpmgContext context)
@@ -56,41 +60,34 @@ namespace kpmg.UnitTests.Tests.BaUsuTests.Bases
 
 
             var uow = new UnitOfWork(context);
-            var baUsuCoreRepository = new BaUsuRepository(context);
-            var baUsuParamRepository = new BaParamRepository(context);
-            var baUsuValidarSenhaExpirada =
-                new BaUsuValidarSenhaExpirada(baUsuCoreRepository, baUsuParamRepository);
-            var baUsuValidarSenha =
-                new BaUsuValidarSenha(baUsuCoreRepository, baUsuValidarSenhaExpirada);
-            var baCargoRepository =
-                new BaCargoRepository(context);
-            var baUsuFilialRepository =
-                new BaUsuFilialRepository(context);
-            var vBaUsuPermissaoRepository =
-                new VBaUsuPermissaoRepository(context);
+            var usuarioSistemaCoreRepository = new UsuarioSistemaRepository(context);
+            
+            var passwordHasher = new PasswordHasher(new HashingOptions());
+
+            var usuarioSistemaValidarSenha =
+                new UsuarioSistemaValidarSenha(usuarioSistemaCoreRepository, passwordHasher);
+            var vUsuarioSistemaPermissaoRepository =
+                new VwUsuarioSistemaPermissaoRepository(context);
             var gerarTokenLoginUsecase =
                 new GerarTokenLoginUsecase
                 (
                     configuration,
-                    baUsuValidarSenha,
-                    baCargoRepository,
-                    baUsuFilialRepository,
-                    vBaUsuPermissaoRepository
+                    usuarioSistemaValidarSenha
                 );
             return gerarTokenLoginUsecase;
         }
 
-        private AutenticacaoAppService ObterBaUsuAppService(KpmgContext context)
+        private AutenticacaoAppService ObterUsuarioSistemaAppService(KpmgContext context)
         {
             var uow = new UnitOfWork(context);
-            var vBaUsuRepository = new VBaUsuPermissaoRepository(context);
+            var vUsuarioSistemaRepository = new VwUsuarioSistemaPermissaoRepository(context);
             var mapper = MapperHelper.ConfigMapper();
 
             var oterAtualizarSenhaExpiradaUsecase = ObterAtualizarSenhaExpiradaUsecase(context);
             var obterEsquecerSenhaUsecase = ObterEsquecerSenhaUsecase(context);
             var obterGerarTokenLoginUsecaseUsecase = ObterGerarTokenLoginUsecase(context);
 
-            var autenticacaoAppService = new AutenticacaoAppService(vBaUsuRepository,
+            var autenticacaoAppService = new AutenticacaoAppService(vUsuarioSistemaRepository,
                 oterAtualizarSenhaExpiradaUsecase,
                 obterGerarTokenLoginUsecaseUsecase, obterEsquecerSenhaUsecase, mapper);
             return autenticacaoAppService;

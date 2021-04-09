@@ -23,9 +23,9 @@ namespace kpmg.UnitTests.Helpers
                 JsonUtilities.GetListFromJson<Airplane>(
                     assembly.GetManifestResourceStream($"{JsonPath}.airplane.json")));
 
-            db.BaUsus.AddRange(
-                JsonUtilities.GetListFromJson<BaUsu>(
-                    assembly.GetManifestResourceStream($"{JsonPath}.baUsu.json")));
+            db.UsuarioSistemas.AddRange(
+                JsonUtilities.GetListFromJson<UsuarioSistema>(
+                    assembly.GetManifestResourceStream($"{JsonPath}.usuarioSistema.json")));
 
             db.SaveChanges();
         }

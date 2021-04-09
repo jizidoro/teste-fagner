@@ -1,14 +1,7 @@
 #region
 
 using kpmg.Core.AirplaneCore;
-using kpmg.Core.BaCargoCore;
-using kpmg.Core.BaFilialCore;
-using kpmg.Core.BaLogradouroCore;
-using kpmg.Core.BaParamCore;
-using kpmg.Core.BaTipoCargoCore;
-using kpmg.Core.BaUsuCore;
-using kpmg.Core.BaUsuFilialCore;
-using kpmg.Core.BaUsuPermissaoCore;
+using kpmg.Core.UsuarioSistemaCore;
 using kpmg.Core.Helpers.Interfaces;
 using kpmg.Core.Views.VBaUsuPermissaoCore;
 using kpmg.Infrastructure.DataAccess;
@@ -55,15 +48,8 @@ namespace kpmg.WebApi.Modules
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IAirplaneRepository, AirplaneRepository>();
-            services.AddScoped<IBaCargoRepository, BaCargoRepository>();
-            services.AddScoped<IBaFilialRepository, BaFilialRepository>();
-            services.AddScoped<IBaLogradouroRepository, BaLogradouroRepository>();
-            services.AddScoped<IBaParamRepository, BaParamRepository>();
-            services.AddScoped<IBaTipoCargoRepository, BaTipoCargoRepository>();
-            services.AddScoped<IBaUsuFilialRepository, BaUsuFilialRepository>();
-            services.AddScoped<IBaUsuRepository, BaUsuRepository>();
-            services.AddScoped<IBaUsuPermissaoRepository, BaUsuPermissaoRepository>();
-            services.AddScoped<IVBaUsuPermissaoRepository, VBaUsuPermissaoRepository>();
+            services.AddScoped<IUsuarioSistemaRepository, UsuarioSistemaRepository>();
+            services.AddScoped<IVwUsuarioSistemaPermissaoRepository, VwUsuarioSistemaPermissaoRepository>();
 
             return services;
         }

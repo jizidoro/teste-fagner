@@ -4,8 +4,10 @@ using kpmg.Application.Interfaces;
 using kpmg.Application.Services;
 using kpmg.Core.AirplaneCore.Usecase;
 using kpmg.Core.AirplaneCore.Validation;
-using kpmg.Core.BaUsuCore.Usecase;
-using kpmg.Core.BaUsuCore.Validation;
+using kpmg.Core.Helpers.Extensions;
+using kpmg.Core.Helpers.Models;
+using kpmg.Core.UsuarioSistemaCore.Usecase;
+using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Core.SecurityCore.Usecase;
 using kpmg.Core.SecurityCore.Validation;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,26 +52,25 @@ namespace kpmg.WebApi.Modules
 
             #endregion
 
-            #region BaUsu
+            #region UsuarioSistema
 
             // Application - Services
-            services.AddScoped<IBaUsuAppService, BaUsuAppService>();
+            services.AddScoped<IUsuarioSistemaAppService, UsuarioSistemaAppService>();
 
             // Core - Usecases
             services.AddScoped<AtualizarSenhaExpiradaUsecase>();
             services.AddScoped<GerarTokenLoginUsecase>();
             services.AddScoped<EsquecerSenhaUsecase>();
-            services.AddScoped<BaUsuValidarEsquecerSenha>();
-            services.AddScoped<BaUsuValidarSenha>();
-            services.AddScoped<BaUsuEditarUsecase>();
-            services.AddScoped<BaUsuIncluirUsecase>();
-            services.AddScoped<BaUsuExcluirUsecase>();
+            services.AddScoped<UsuarioSistemaValidarEsquecerSenha>();
+            services.AddScoped<UsuarioSistemaValidarSenha>();
+            services.AddScoped<UsuarioSistemaEditarUsecase>();
+            services.AddScoped<UsuarioSistemaIncluirUsecase>();
+            services.AddScoped<UsuarioSistemaExcluirUsecase>();
 
             // Core - Validations
-            services.AddScoped<BaUsuValidarEditar>();
-            services.AddScoped<BaUsuValidarExcluir>();
-            services.AddScoped<BaUsuValidarIncluir>();
-            services.AddScoped<BaUsuValidarSenhaExpirada>();
+            services.AddScoped<UsuarioSistemaValidarEditar>();
+            services.AddScoped<UsuarioSistemaValidarExcluir>();
+            services.AddScoped<UsuarioSistemaValidarIncluir>();
 
             #endregion
 

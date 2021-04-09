@@ -13,7 +13,7 @@ namespace kpmg.Application.Validations.AirplaneValitation
             ValidarId();
             ValidarCodigo();
             ValidarModelo();
-            ValidarQuantidadePassageiros();
+            ValidarQuantidadePassageiro();
         }
     }
 }

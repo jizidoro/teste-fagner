@@ -16,7 +16,7 @@ namespace kpmg.UnitTests.Tests.BaUsuTests.Bases
         public AutenticacaoAppService ObterAutenticacaoAppServiceService(KpmgContext context)
         {
             var uow = new UnitOfWork(context);
-            var vBaUsuRepository = new VBaUsuPermissaoRepository(context);
+            var vUsuarioSistemaRepository = new VwUsuarioSistemaPermissaoRepository(context);
             var mapper = MapperHelper.ConfigMapper();
 
             var oterAtualizarSenhaExpiradaUsecase =
@@ -26,7 +26,7 @@ namespace kpmg.UnitTests.Tests.BaUsuTests.Bases
             var obterGerarTokenLoginUsecaseUsecase =
                 _autenticacaoInjectionUseCase.ObterGerarTokenLoginUsecase(context);
 
-            var autenticacaoAppService = new AutenticacaoAppService(vBaUsuRepository, oterAtualizarSenhaExpiradaUsecase,
+            var autenticacaoAppService = new AutenticacaoAppService(vUsuarioSistemaRepository, oterAtualizarSenhaExpiradaUsecase,
                 obterGerarTokenLoginUsecaseUsecase, obterEsquecerSenhaUsecase, mapper);
             return autenticacaoAppService;
         }

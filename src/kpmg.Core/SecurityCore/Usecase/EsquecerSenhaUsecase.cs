@@ -2,8 +2,8 @@
 
 using System;
 using System.Threading.Tasks;
-using kpmg.Core.BaUsuCore;
-using kpmg.Core.BaUsuCore.Validation;
+using kpmg.Core.UsuarioSistemaCore;
+using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Core.Helpers.Bases;
 using kpmg.Core.Helpers.Extensions;
 using kpmg.Core.Helpers.Interfaces;
@@ -16,22 +16,24 @@ namespace kpmg.Core.SecurityCore.Usecase
 {
     public class EsquecerSenhaUsecase : Service
     {
-        private readonly BaUsuValidarEsquecerSenha _baUsuValidarEsquecerSenha;
-        private readonly IBaUsuRepository _repository;
+        private readonly UsuarioSistemaValidarEsquecerSenha _usuarioSistemaValidarEsquecerSenha;
+        private readonly IPasswordHasher _passwordHasher;
+        private readonly IUsuarioSistemaRepository _repository;
 
-        public EsquecerSenhaUsecase(IBaUsuRepository repository, BaUsuValidarEsquecerSenha baUsuValidarEsquecerSenha,
-            IUnitOfWork uow)
+        public EsquecerSenhaUsecase(IUsuarioSistemaRepository repository, UsuarioSistemaValidarEsquecerSenha usuarioSistemaValidarEsquecerSenha,
+            IPasswordHasher passwordHasher, IUnitOfWork uow)
             : base(uow)
         {
             _repository = repository;
-            _baUsuValidarEsquecerSenha = baUsuValidarEsquecerSenha;
+            _usuarioSistemaValidarEsquecerSenha = usuarioSistemaValidarEsquecerSenha;
+            _passwordHasher = passwordHasher;
         }
 
-        public async Task<ISingleResult<BaUsu>> Execute(BaUsu entity)
+        public async Task<ISingleResult<UsuarioSistema>> Execute(UsuarioSistema entity)
         {
             try
             {
-                var result = _baUsuValidarEsquecerSenha.Execute(entity);
+                var result = _usuarioSistemaValidarEsquecerSenha.Execute(entity);
                 if (!result.Sucesso) return result;
 
                 var obj = result.Data;
@@ -44,18 +46,16 @@ namespace kpmg.Core.SecurityCore.Usecase
             }
             catch (Exception ex)
             {
-                return new SingleResult<BaUsu>(ex);
+                return new SingleResult<UsuarioSistema>(ex);
             }
 
-            return new EditarResult<BaUsu>();
+            return new EditarResult<UsuarioSistema>();
         }
 
-        private void HydrateValues(BaUsu target, BaUsu source)
+        private void HydrateValues(UsuarioSistema target, UsuarioSistema source)
         {
-            var regraEsquecerSenha = target.Cpf.Substring(0, 6);
-            target.Senha = ItecIntegrationExtensions.Cifrar(regraEsquecerSenha);
-            target.UltAltSenha = HorariosFusoExtensions.ObterHorarioBrasilia();
-            target.DtUltAlt = HorariosFusoExtensions.ObterHorarioBrasilia();
+            var regraEsquecerSenha = "123456";
+            target.Senha = _passwordHasher.Hash(regraEsquecerSenha);
         }
     }
 }

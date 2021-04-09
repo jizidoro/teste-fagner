@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using kpmg.Application.Dtos;
 using kpmg.Application.Services;
-using kpmg.Core.BaUsuCore.Usecase;
-using kpmg.Core.BaUsuCore.Validation;
 using kpmg.Core.Helpers.Extensions;
+using kpmg.Core.UsuarioSistemaCore.Usecase;
+using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Domain.Models;
 using kpmg.Infrastructure.DataAccess;
 using kpmg.Infrastructure.Repositories;
-using kpmg.WebApi.UseCases.V1.BaUsuApi;
 using kpmg.IntegrationTests.Helpers;
+using kpmg.WebApi.UseCases.V1.UsuarioSistemaApi;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using Xunit.Abstractions;
@@ -20,34 +20,34 @@ using Xunit.Abstractions;
 
 namespace kpmg.IntegrationTests.Tests.BaUsuTests
 {
-    public sealed class BaUsuControllerTests
+    public sealed class UsuarioSistemaControllerTests
     {
         private readonly ITestOutputHelper _output;
 
-        public BaUsuControllerTests(ITestOutputHelper output)
+        public UsuarioSistemaControllerTests(ITestOutputHelper output)
         {
             _output = output;
         }
 
-        private BaUsuController ObterBaUsuController(KpmgContext context)
+        private UsuarioSistemaController ObterUsuarioSistemaController(KpmgContext context)
         {
             var uow = new UnitOfWork(context);
-            var baUsuRepository = new BaUsuRepository(context);
+            var usuarioSistemaRepository = new UsuarioSistemaRepository(context);
 
-            var baUsuValidarEditar =
-                new BaUsuValidarEditar(baUsuRepository);
-            var baUsuValidarExcluir = new BaUsuValidarExcluir(baUsuRepository);
-            var baUsuValidarIncluir =
-                new BaUsuValidarIncluir(baUsuRepository);
-            var baUsuIncluirUsecase = new BaUsuIncluirUsecase(baUsuRepository, baUsuValidarIncluir, uow);
-            var baUsuExcluirUsecase = new BaUsuExcluirUsecase(baUsuRepository, baUsuValidarExcluir, uow);
-            var baUsuEditarUsecase = new BaUsuEditarUsecase(baUsuRepository, baUsuValidarEditar, uow);
+            var usuarioSistemaValidarEditar =
+                new UsuarioSistemaValidarEditar(usuarioSistemaRepository);
+            var usuarioSistemaValidarExcluir = new UsuarioSistemaValidarExcluir(usuarioSistemaRepository);
+            var usuarioSistemaValidarIncluir =
+                new UsuarioSistemaValidarIncluir(usuarioSistemaRepository);
+            var usuarioSistemaIncluirUsecase = new UsuarioSistemaIncluirUsecase(usuarioSistemaRepository, usuarioSistemaValidarIncluir, uow);
+            var usuarioSistemaExcluirUsecase = new UsuarioSistemaExcluirUsecase(usuarioSistemaRepository, usuarioSistemaValidarExcluir, uow);
+            var usuarioSistemaEditarUsecase = new UsuarioSistemaEditarUsecase(usuarioSistemaRepository, usuarioSistemaValidarEditar, uow);
             var mapper = MapperHelper.ConfigMapper();
 
-            var baUsuAppService = new BaUsuAppService(baUsuRepository, baUsuEditarUsecase, baUsuIncluirUsecase,
-                baUsuExcluirUsecase, mapper);
+            var usuarioSistemaAppService = new UsuarioSistemaAppService(usuarioSistemaRepository, usuarioSistemaEditarUsecase, usuarioSistemaIncluirUsecase,
+                usuarioSistemaExcluirUsecase, mapper);
 
-            return new BaUsuController(baUsuAppService, mapper);
+            return new UsuarioSistemaController(usuarioSistemaAppService, mapper);
         }
 
 
@@ -55,49 +55,41 @@ namespace kpmg.IntegrationTests.Tests.BaUsuTests
         public async Task Incluir_ChangesDatabase()
         {
             var options = new DbContextOptionsBuilder<KpmgContext>()
-                .UseInMemoryDatabase("test_database_change_database_baUsu")
+                .UseInMemoryDatabase("test_database_change_database_usuarioSistema")
                 .Options;
 
 
-            var teste = new BaUsuIncluirDto
+            var teste = new UsuarioSistemaIncluirDto
             {
                 Id = 20204,
-                NomeUsu = "20204",
+                Nome = "20204",
                 Senha = "05852608777",
-                IdLogradouro = 10,
-                Cpf = "12345",
-                NrLogradouro = 12345,
-                StsUsu = 1,
-                CodCargo = 2,
-                DtAdmissao = HorariosFusoExtensions.ObterHorarioBrasilia(),
                 Matricula = "123456",
-                IdUsuCad = 12345,
-                DtCad = HorariosFusoExtensions.ObterHorarioBrasilia()
             };
 
 
             await using var context = new KpmgContext(options);
             await context.Database.EnsureCreatedAsync();
-            var baUsuController = ObterBaUsuController(context);
-            _ = await baUsuController.Incluir(teste);
-            Assert.Equal(1, context.BaUsus.Count());
+            var usuarioSistemaController = ObterUsuarioSistemaController(context);
+            _ = await usuarioSistemaController.Incluir(teste);
+            Assert.Equal(1, context.UsuarioSistemas.Count());
         }
 
         [Fact]
-        public async Task Get_ReturnsBaUsu()
+        public async Task Get_ReturnsUsuarioSistema()
         {
             var options = new DbContextOptionsBuilder<KpmgContext>()
-                .UseInMemoryDatabase("test_database_return_baUsu")
+                .UseInMemoryDatabase("test_database_return_usuarioSistema")
                 .Options;
 
-            BaUsu baUsu = null;
+            UsuarioSistema usuarioSistema = null;
 
             await using var context = new KpmgContext(options);
             await context.Database.EnsureCreatedAsync();
             Utilities.InitializeDbForTests(context);
-            var repository = new BaUsuRepository(context);
-            baUsu = await repository.GetById(20203);
-            Assert.NotNull(baUsu);
+            var repository = new UsuarioSistemaRepository(context);
+            usuarioSistema = await repository.GetById(20203);
+            Assert.NotNull(usuarioSistema);
         }
     }
 }

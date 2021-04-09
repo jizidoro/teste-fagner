@@ -21,23 +21,23 @@ namespace kpmg.WebApi.UseCases.V1
     [ApiController]
     public class ComumController : Controller
     {
-        private readonly IBaUsuAppService _baUsuAppService;
+        private readonly IUsuarioSistemaAppService _usuarioSistemaAppService;
         private readonly IServiceProvider _serviceProvider;
 
-        public ComumController(IServiceProvider serviceProvider, IBaUsuAppService baUsuAppService)
+        public ComumController(IServiceProvider serviceProvider, IUsuarioSistemaAppService usuarioSistemaAppService)
         {
             _serviceProvider = serviceProvider;
-            _baUsuAppService = baUsuAppService;
+            _usuarioSistemaAppService = usuarioSistemaAppService;
         }
 
 
         [HttpGet]
-        [Route("lookup-ba-usu")]
-        public async Task<IActionResult> GetLookupBaUsu()
+        [Route("lookup-usuario-sistema")]
+        public async Task<IActionResult> GetLookupUsuarioSistema()
         {
             try
             {
-                var service = _serviceProvider.GetService<ILookupServiceApp<BaUsu>>();
+                var service = _serviceProvider.GetService<ILookupServiceApp<UsuarioSistema>>();
 
                 var result = await service?.ObterLookup()!;
 
@@ -50,17 +50,17 @@ namespace kpmg.WebApi.UseCases.V1
         }
 
         [HttpGet]
-        [Route("lookup-ba-usu-por-nome/{nome}")]
-        public async Task<IActionResult> GetLookupBaUsuPorNone(string nome)
+        [Route("lookup-usuario-sistema-por-nome/{nome}")]
+        public async Task<IActionResult> GetLookupUsuarioSistemaPorNone(string nome)
         {
             try
             {
-                var result = await _baUsuAppService.BuscarPorNome(nome);
+                var result = await _usuarioSistemaAppService.BuscarPorNome(nome);
                 return Ok(result);
             }
             catch (Exception e)
             {
-                return Ok(new SingleResultDto<BaUsuDto>(e));
+                return Ok(new SingleResultDto<UsuarioSistemaDto>(e));
             }
         }
     }

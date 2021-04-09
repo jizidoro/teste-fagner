@@ -6,9 +6,9 @@ using kpmg.Application.Dtos;
 
 namespace kpmg.Application.Validations.BaUsuValitation
 {
-    public class BaUsuExcluirValidation : BaUsuValidation<BaUsuDto>
+    public class UsuarioSistemaExcluirValidation : UsuarioSistemaValidation<UsuarioSistemaDto>
     {
-        public BaUsuExcluirValidation()
+        public UsuarioSistemaExcluirValidation()
         {
             ValidarId();
         }

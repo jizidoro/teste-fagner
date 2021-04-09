@@ -2,7 +2,9 @@
 
 using kpmg.Application.Interfaces;
 using kpmg.Application.Services;
+using kpmg.Core.Helpers.Extensions;
 using kpmg.Core.Helpers.Interfaces;
+using kpmg.Core.Helpers.Models;
 using kpmg.Infrastructure.Bases;
 using kpmg.WebApi.Modules;
 using kpmg.WebApi.Modules.Common;
@@ -59,6 +61,9 @@ namespace kpmg.WebApi
 
             services.AddScoped(typeof(ILookupServiceApp<>), typeof(LookupServiceApp<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<HashingOptions>();
 
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>

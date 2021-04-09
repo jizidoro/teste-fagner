@@ -11,9 +11,9 @@ namespace kpmg.WebApi.Modules.Common.FeatureFlags
         Airplane,
 
         /// <summary>
-        ///     Get BaUsu.
+        ///     Get UsuarioSistema.
         /// </summary>
-        BaUsu,
+        UsuarioSistema,
 
         /// <summary>
         ///     Get Comum.

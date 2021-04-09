@@ -1,6 +1,6 @@
 ﻿namespace kpmg.Application.Dtos
 {
-    public class BaUsuExcluirDto : BaUsuDto
+    public class UsuarioSistemaExcluirDto : UsuarioSistemaDto
     {
     }
 }
