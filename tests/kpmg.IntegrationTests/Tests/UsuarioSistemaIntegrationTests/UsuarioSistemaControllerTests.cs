@@ -12,6 +12,7 @@ using kpmg.Domain.Models;
 using kpmg.Infrastructure.DataAccess;
 using kpmg.Infrastructure.Repositories;
 using kpmg.IntegrationTests.Helpers;
+using kpmg.UnitTests.Tests.UsuarioSistemaTests.Bases;
 using kpmg.WebApi.UseCases.V1.UsuarioSistemaApi;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -19,11 +20,13 @@ using Xunit.Abstractions;
 
 #endregion
 
-namespace kpmg.IntegrationTests.Tests.UsuarioSistemaTests
+namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
 {
     public sealed class UsuarioSistemaControllerTests
     {
         private readonly ITestOutputHelper _output;
+
+        private readonly UsuarioSistemaInjectionAppService _usuarioSistemaInjectionAppService = new();
 
         public UsuarioSistemaControllerTests(ITestOutputHelper output)
         {
@@ -32,27 +35,8 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaTests
 
         private UsuarioSistemaController ObterUsuarioSistemaController(KpmgContext context)
         {
-            var uow = new UnitOfWork(context);
-            var usuarioSistemaRepository = new UsuarioSistemaRepository(context);
-            var passwordHasher = new PasswordHasher(new HashingOptions());
-
-            var usuarioSistemaValidarEditar =
-                new UsuarioSistemaValidarEditar(usuarioSistemaRepository);
-            var usuarioSistemaValidarExcluir = new UsuarioSistemaValidarExcluir(usuarioSistemaRepository);
-            var usuarioSistemaValidarIncluir =
-                new UsuarioSistemaValidarIncluir(usuarioSistemaRepository);
-            var usuarioSistemaIncluirUsecase =
-                new UsuarioSistemaIncluirUsecase(usuarioSistemaRepository, usuarioSistemaValidarIncluir, passwordHasher,
-                    uow);
-            var usuarioSistemaExcluirUsecase =
-                new UsuarioSistemaExcluirUsecase(usuarioSistemaRepository, usuarioSistemaValidarExcluir, uow);
-            var usuarioSistemaEditarUsecase =
-                new UsuarioSistemaEditarUsecase(usuarioSistemaRepository, usuarioSistemaValidarEditar, uow);
             var mapper = MapperHelper.ConfigMapper();
-
-            var usuarioSistemaAppService = new UsuarioSistemaAppService(usuarioSistemaRepository,
-                usuarioSistemaEditarUsecase, usuarioSistemaIncluirUsecase,
-                usuarioSistemaExcluirUsecase, mapper);
+            var usuarioSistemaAppService = _usuarioSistemaInjectionAppService.ObterUsuarioSistemaAppService(context, mapper);
 
             return new UsuarioSistemaController(usuarioSistemaAppService, mapper);
         }

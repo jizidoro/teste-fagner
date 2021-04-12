@@ -36,11 +36,15 @@ namespace kpmg.WebApi.UseCases.V1.UsuarioSistemaApi
 
         [HttpGet]
         [Route("listar")]
-        public async Task<IActionResult> Listar([FromQuery] PaginationQuery paginationQuery)
+        public async Task<IActionResult> Listar([FromQuery] PaginationQuery? paginationQuery)
         {
             try
             {
-                var paginationFilter = _mapper.Map<PaginationQuery, PaginationFilter>(paginationQuery);
+                PaginationFilter? paginationFilter = null;
+                if (paginationQuery != null)
+                {
+                    paginationFilter = _mapper.Map<PaginationQuery, PaginationFilter>(paginationQuery);
+                }
 
                 var result = await _usuarioSistemaAppService.Listar(paginationFilter);
                 return Ok(result);
