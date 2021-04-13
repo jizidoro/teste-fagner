@@ -1,14 +1,13 @@
 ﻿#region
 
-#endregion
-
 using AutoMapper;
 using kpmg.Application.Services;
 using kpmg.Core.AirplaneCore.Usecase;
 using kpmg.Core.AirplaneCore.Validation;
 using kpmg.Infrastructure.DataAccess;
 using kpmg.Infrastructure.Repositories;
-using kpmg.UnitTests.Helpers;
+
+#endregion
 
 namespace kpmg.UnitTests.Tests.AirplaneTests.Bases
 {
@@ -30,7 +29,7 @@ namespace kpmg.UnitTests.Tests.AirplaneTests.Bases
             var airplaneIncluirUsecase = new AirplaneIncluirUsecase(airplaneRepository, airplaneValidarIncluir, uow);
             var airplaneExcluirUsecase = new AirplaneExcluirUsecase(airplaneRepository, airplaneValidarExcluir, uow);
             var airplaneEditarUsecase = new AirplaneEditarUsecase(airplaneRepository, airplaneValidarEditar, uow);
-            
+
             return new AirplaneAppService(airplaneRepository, airplaneEditarUsecase, airplaneIncluirUsecase,
                 airplaneExcluirUsecase, mapper);
         }

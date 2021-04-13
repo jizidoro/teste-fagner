@@ -1,8 +1,6 @@
 #region
 
-using System.Linq;
 using System.Threading.Tasks;
-using kpmg.Application.Dtos;
 using kpmg.Core.Helpers.Extensions;
 using kpmg.Domain.Models;
 using kpmg.Infrastructure.DataAccess;
@@ -35,7 +33,7 @@ namespace kpmg.UnitTests.Tests.AutenticacaoTests
                 .Options;
 
 
-            var teste = new UsuarioSistema()
+            var teste = new UsuarioSistema
             {
                 Id = 1,
                 Nome = "111",
@@ -54,7 +52,8 @@ namespace kpmg.UnitTests.Tests.AutenticacaoTests
             var retornoAntes = await repository.GetById(teste.Id);
             var senhaAntes = retornoAntes.Senha;
 
-            var atualizarSenhaExpiradaUsecase = _autenticacaoInjectionUseCase.ObterAtualizarSenhaExpiradaUsecase(context);
+            var atualizarSenhaExpiradaUsecase =
+                _autenticacaoInjectionUseCase.ObterAtualizarSenhaExpiradaUsecase(context);
             var result = await atualizarSenhaExpiradaUsecase.Execute(teste);
             _output.WriteLine(result.Mensagem);
 

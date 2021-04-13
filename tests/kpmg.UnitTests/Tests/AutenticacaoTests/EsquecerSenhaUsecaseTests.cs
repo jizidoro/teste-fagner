@@ -1,6 +1,5 @@
 #region
 
-using System.Linq;
 using System.Threading.Tasks;
 using kpmg.Core.Helpers.Extensions;
 using kpmg.Domain.Models;
@@ -35,7 +34,7 @@ namespace kpmg.UnitTests.Tests.AutenticacaoTests
                 .Options;
 
 
-            var teste = new UsuarioSistema()
+            var teste = new UsuarioSistema
             {
                 Id = 1,
                 Nome = "111",

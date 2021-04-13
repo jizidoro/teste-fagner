@@ -3,7 +3,6 @@
 using System.Threading.Tasks;
 using kpmg.Application.Dtos;
 using kpmg.Infrastructure.DataAccess;
-using kpmg.Infrastructure.Repositories;
 using kpmg.UnitTests.Helpers;
 using kpmg.UnitTests.Tests.AutenticacaoTests.Bases;
 using kpmg.UnitTests.Tests.AutenticacaoTests.TestDatas;

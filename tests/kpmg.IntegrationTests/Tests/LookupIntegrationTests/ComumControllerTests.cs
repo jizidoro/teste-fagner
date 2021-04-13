@@ -9,7 +9,6 @@ using kpmg.Core.Helpers.Interfaces;
 using kpmg.Infrastructure.Bases;
 using kpmg.Infrastructure.DataAccess;
 using kpmg.IntegrationTests.Helpers;
-using kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests;
 using kpmg.UnitTests.Tests.UsuarioSistemaTests.Bases;
 using kpmg.WebApi.Modules;
 using kpmg.WebApi.Modules.Common;
@@ -30,8 +29,8 @@ namespace kpmg.IntegrationTests.Tests.LookupIntegrationTests
 {
     public sealed class ComumControllerTests
     {
-        private readonly UsuarioSistemaInjectionAppService _usuarioSistemaInjectionAppService = new();
         private readonly ITestOutputHelper _output;
+        private readonly UsuarioSistemaInjectionAppService _usuarioSistemaInjectionAppService = new();
 
         public ComumControllerTests(ITestOutputHelper output)
         {

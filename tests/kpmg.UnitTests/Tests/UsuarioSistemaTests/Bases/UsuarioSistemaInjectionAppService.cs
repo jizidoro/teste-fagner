@@ -1,7 +1,5 @@
 ﻿#region
 
-#endregion
-
 using AutoMapper;
 using kpmg.Application.Services;
 using kpmg.Core.Helpers.Extensions;
@@ -10,7 +8,8 @@ using kpmg.Core.UsuarioSistemaCore.Usecase;
 using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Infrastructure.DataAccess;
 using kpmg.Infrastructure.Repositories;
-using kpmg.UnitTests.Helpers;
+
+#endregion
 
 namespace kpmg.UnitTests.Tests.UsuarioSistemaTests.Bases
 {

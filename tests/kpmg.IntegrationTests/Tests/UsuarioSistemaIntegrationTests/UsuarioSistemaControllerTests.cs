@@ -3,11 +3,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using kpmg.Application.Dtos.UsuarioSistemaDtos;
-using kpmg.Application.Services;
-using kpmg.Core.Helpers.Extensions;
-using kpmg.Core.Helpers.Models;
-using kpmg.Core.UsuarioSistemaCore.Usecase;
-using kpmg.Core.UsuarioSistemaCore.Validation;
 using kpmg.Domain.Models;
 using kpmg.Infrastructure.DataAccess;
 using kpmg.Infrastructure.Repositories;
@@ -36,7 +31,8 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
         private UsuarioSistemaController ObterUsuarioSistemaController(KpmgContext context)
         {
             var mapper = MapperHelper.ConfigMapper();
-            var usuarioSistemaAppService = _usuarioSistemaInjectionAppService.ObterUsuarioSistemaAppService(context, mapper);
+            var usuarioSistemaAppService =
+                _usuarioSistemaInjectionAppService.ObterUsuarioSistemaAppService(context, mapper);
 
             return new UsuarioSistemaController(usuarioSistemaAppService, mapper);
         }
@@ -57,7 +53,7 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
                 Email = "777@teste",
                 Senha = "123456",
                 Situacao = true,
-                Matricula = "123",
+                Matricula = "123"
             };
 
 

@@ -1,4 +1,8 @@
-﻿using kpmg.Domain.Enums;
+﻿#region
+
+using kpmg.Domain.Enums;
+
+#endregion
 
 namespace kpmg.Core.Utils
 {
@@ -7,7 +11,7 @@ namespace kpmg.Core.Utils
         public SecurityResult(User user)
         {
             User = user;
-            Code = (int)EnumResultadoAcao.Sucesso; 
+            Code = (int) EnumResultadoAcao.Sucesso;
             Success = true;
         }
 
