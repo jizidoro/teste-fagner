@@ -16,6 +16,7 @@ namespace kpmg.Application.Dtos.AirplaneDtos
         [DisplayName("Codigo")]
         [Required(ErrorMessage = "Please enter a Codigo")]
         public string Codigo { get; set; }
+
         public string Modelo { get; set; }
         public int QuantidadePassageiro { get; set; }
         public DateTime DataRegistro { get; set; }
