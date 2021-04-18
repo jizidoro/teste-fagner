@@ -55,6 +55,10 @@ namespace kpmg.WebApi.UseCases.V1.AirplaneApi
             }
         }
 
+        /// <summary>
+        /// obter por id
+        /// </summary>
+        /// <param name="id"></param>
         [HttpGet]
         [Route("obter/{id:int}")]
         public async Task<IActionResult> Obter(int id)

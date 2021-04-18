@@ -50,7 +50,7 @@ namespace kpmg.IntegrationTests.Tests.LookupIntegrationTests
                 {"TopLevelKey", "TopLevelValue"},
                 {
                     "PersistenceModule:DefaultConnection",
-                    "Data Source=172.16.50.97;Initial Catalog=d1000_suite_dev;UID=d1000;PWD=#Profarma2020@"
+                    "Server=(localdb)\\mssqllocaldb;Database=BD_KPMG_TESTE;Trusted_Connection=True;MultipleActiveResultSets=true"
                 }
             };
 
