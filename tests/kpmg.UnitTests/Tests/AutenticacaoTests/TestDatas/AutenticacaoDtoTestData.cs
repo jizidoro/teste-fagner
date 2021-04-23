@@ -40,10 +40,10 @@ namespace kpmg.UnitTests.Tests.AutenticacaoTests.TestDatas
             };
             yield return new object[]
             {
-                200, new AutenticacaoDto
+                1001, new AutenticacaoDto
                 {
                     Chave = "4",
-                    Senha = "123456"
+                    Senha = "1234567"
                 }
             };
         }
