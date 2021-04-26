@@ -1,5 +1,6 @@
 #region
 
+using System.Collections.Generic;
 using kpmg.Core.AirplaneCore;
 using kpmg.Core.Helpers.Interfaces;
 using kpmg.Core.UsuarioSistemaCore;
@@ -20,12 +21,12 @@ namespace kpmg.WebApi.Modules
     /// <summary>
     ///     Persistence Extensions.
     /// </summary>
-    public static class SqlServerExtensionsFake
+    public static class EntityRepositoryExtensions
     {
         /// <summary>
         ///     Add Persistence dependencies varying on configuration.
         /// </summary>
-        public static IServiceCollection AddSqlServerFake(
+        public static IServiceCollection AddEntityRepository(
             this IServiceCollection services,
             IConfiguration configuration)
         {
@@ -39,10 +40,12 @@ namespace kpmg.WebApi.Modules
                 .GetAwaiter()
                 .GetResult();
 
-
             if (isEnabled)
             {
-                services.AddDbContext<KpmgContext>(options => options.UseInMemoryDatabase("test_database"));
+                services.AddScoped<IUnitOfWork, UnitOfWork>();
+                services.AddScoped<IAirplaneRepository, AirplaneRepository>();
+                services.AddScoped<IUsuarioSistemaRepository, UsuarioSistemaRepository>();
+                services.AddScoped<IVwUsuarioSistemaPermissaoRepository, VwUsuarioSistemaPermissaoRepository>();
             }
 
             return services;

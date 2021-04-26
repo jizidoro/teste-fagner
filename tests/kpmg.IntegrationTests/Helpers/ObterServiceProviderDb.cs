@@ -30,6 +30,7 @@ namespace kpmg.IntegrationTests.Helpers
                 .AddFeatureFlags(configuration)
                 .AddInvalidRequestLogging()
                 .AddSqlServer(configuration)
+                .AddEntityRepository(configuration)
                 .AddHealthChecks(configuration)
                 .AddAuthentication(configuration)
                 .AddVersioning()

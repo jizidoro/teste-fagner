@@ -43,7 +43,7 @@ namespace kpmg.WebApi.Modules
                 .GetAwaiter()
                 .GetResult();
 
-            if (isEnabled) healthChecks.AddDbContextCheck<KpmgContext>("MangaDbContext");
+            if (isEnabled) healthChecks.AddDbContextCheck<KpmgContext>("KpmgContext");
 
             return services;
         }

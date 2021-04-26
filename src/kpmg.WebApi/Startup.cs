@@ -47,6 +47,7 @@ namespace kpmg.WebApi
                 .AddFeatureFlags(Configuration)
                 .AddInvalidRequestLogging()
                 .AddSqlServer(Configuration)
+                .AddEntityRepository(Configuration)
                 .AddHealthChecks(Configuration)
                 .AddAuthentication(Configuration)
                 .AddVersioning()

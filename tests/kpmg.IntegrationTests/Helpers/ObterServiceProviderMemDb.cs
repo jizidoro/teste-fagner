@@ -4,6 +4,7 @@ using kpmg.Application.Interfaces;
 using kpmg.Application.Services;
 using kpmg.Core.Helpers.Interfaces;
 using kpmg.Infrastructure.Bases;
+using kpmg.Infrastructure.DataAccess;
 using kpmg.WebApi.Modules;
 using kpmg.WebApi.Modules.Common;
 using kpmg.WebApi.Modules.Common.FeatureFlags;
@@ -18,6 +19,7 @@ namespace kpmg.IntegrationTests.Helpers
 {
     internal class ObterServiceProviderMemDb
     {
+        private readonly ContextFactory _contextFactory = new();
         public ServiceProvider Execute()
         {
             var services = new ServiceCollection();
@@ -30,6 +32,7 @@ namespace kpmg.IntegrationTests.Helpers
                 .AddFeatureFlags(configuration)
                 .AddInvalidRequestLogging()
                 .AddSqlServerFake(configuration)
+                .AddEntityRepository(configuration)
                 .AddHealthChecks(configuration)
                 .AddAuthentication(configuration)
                 .AddVersioning()

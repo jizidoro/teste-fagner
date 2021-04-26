@@ -19,7 +19,6 @@ namespace kpmg.Infrastructure.DataAccess
         ///     Instantiate a KpmgContext.
         /// </summary>
         /// <param name="args">Command line args.</param>
-        /// <returns>Manga Context.</returns>
         public KpmgContext CreateDbContext(string[] args)
         {
             var connectionString = ReadDefaultConnectionStringFromAppSettings();

@@ -1,5 +1,6 @@
 #region
 
+using System.Collections.Generic;
 using kpmg.Core.AirplaneCore;
 using kpmg.Core.Helpers.Interfaces;
 using kpmg.Core.UsuarioSistemaCore;
@@ -38,16 +39,13 @@ namespace kpmg.WebApi.Modules
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
-            
 
-            services.AddDbContext<KpmgContext>(
-                options => options.UseSqlServer(
-                    configuration.GetValue<string>("PersistenceModule:DefaultConnection")));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            services.AddScoped<IAirplaneRepository, AirplaneRepository>();
-            services.AddScoped<IUsuarioSistemaRepository, UsuarioSistemaRepository>();
-            services.AddScoped<IVwUsuarioSistemaPermissaoRepository, VwUsuarioSistemaPermissaoRepository>();
+            if (isEnabled)
+            {
+                services.AddDbContext<KpmgContext>(
+                    options => options.UseSqlServer(
+                        configuration.GetValue<string>("PersistenceModule:DefaultConnection")));
+            }
 
             return services;
         }
