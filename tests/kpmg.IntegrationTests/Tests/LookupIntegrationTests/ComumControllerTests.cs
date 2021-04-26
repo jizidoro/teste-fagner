@@ -31,6 +31,8 @@ namespace kpmg.IntegrationTests.Tests.LookupIntegrationTests
     {
         private readonly ITestOutputHelper _output;
         private readonly UsuarioSistemaInjectionAppService _usuarioSistemaInjectionAppService = new();
+        private readonly ObterServiceProviderDb _obterServiceProviderDb = new();
+        private readonly ObterServiceProviderMemDb _obterServiceProviderMemDb = new();
 
         public ComumControllerTests(ITestOutputHelper output)
         {
@@ -38,68 +40,49 @@ namespace kpmg.IntegrationTests.Tests.LookupIntegrationTests
         }
 
 
-        private ComumController ObterComumController(KpmgContext context)
+        private ComumController ObterComumControllerDb()
         {
             var mapper = MapperHelper.ConfigMapper();
+
+            var serviceProvider = _obterServiceProviderDb.Execute();
+
+            var context = serviceProvider.GetService<KpmgContext>();
+
             var baUsuAppService = _usuarioSistemaInjectionAppService.ObterUsuarioSistemaAppService(context, mapper);
-
-            var services = new ServiceCollection();
-
-            var inMemorySettings = new Dictionary<string, string>
-            {
-                {"TopLevelKey", "TopLevelValue"},
-                {
-                    "PersistenceModule:DefaultConnection",
-                    "Server=(localdb)\\mssqllocaldb;Database=BD_KPMG_TESTE;Trusted_Connection=True;MultipleActiveResultSets=true"
-                }
-            };
-
-            IConfiguration configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(inMemorySettings)
-                .Build();
-
-            services
-                .AddFeatureFlags(configuration)
-                .AddInvalidRequestLogging()
-                .AddSqlServer(configuration)
-                .AddHealthChecks(configuration)
-                .AddAuthentication(configuration)
-                .AddVersioning()
-                .AddSwagger()
-                .AddUseCases()
-                .AddCustomControllers()
-                .AddCustomCors()
-                .AddProxy()
-                .AddCustomDataProtection();
-
-            services.AddAutoMapperSetup();
-
-            services.AddScoped(typeof(ILookupServiceApp<>), typeof(LookupServiceApp<>));
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-            services.AddControllersWithViews()
-                .AddNewtonsoftJson(options =>
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                );
-
-            // Create the service provider instance
-            var serviceProvider = services.BuildServiceProvider();
 
             return new ComumController(serviceProvider, baUsuAppService);
         }
 
-        [Fact]
-        public async Task GetLookupUsuarioSistema_Test()
+        private ComumController ObterComumControllerMemDb()
         {
-            var options = new DbContextOptionsBuilder<KpmgContext>()
-                .UseInMemoryDatabase("test_database_return_GetLookupUsuarioSistema_Test")
-                .Options;
+            var mapper = MapperHelper.ConfigMapper();
 
-            await using var context = new KpmgContext(options);
-            await context.Database.EnsureCreatedAsync();
-            Utilities.InitializeDbForTests(context);
+            var serviceProvider = _obterServiceProviderMemDb.Execute();
 
-            var comumController = ObterComumController(context);
+            var context = serviceProvider.GetService<KpmgContext>();
+
+            var baUsuAppService = _usuarioSistemaInjectionAppService.ObterUsuarioSistemaAppService(context, mapper);
+
+            return new ComumController(serviceProvider, baUsuAppService);
+        }
+
+        [Fact(Skip = "usa a instancia local do sqlserver")]
+        public async Task GetLookupUsuarioSistemaDb_Test()
+        {
+            var comumController = ObterComumControllerDb();
+            var result = await comumController.GetLookupUsuarioSistema();
+
+            if (result is OkObjectResult okResult)
+            {
+                var actualResultValue = okResult.Value as ListResultDto<LookupDto>;
+                Assert.NotNull(actualResultValue);
+            }
+        }
+
+        [Fact]
+        public async Task GetLookupUsuarioSistemaMemDb_Test()
+        {
+            var comumController = ObterComumControllerMemDb();
             var result = await comumController.GetLookupUsuarioSistema();
 
             if (result is OkObjectResult okResult)
