@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
 using kpmg.Application.Interfaces;
 using kpmg.Application.Services;
 using kpmg.Core.Helpers.Interfaces;
@@ -15,9 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
+#endregion
+
 namespace kpmg.IntegrationTests.Helpers
 {
-    class ObterServiceProviderMemDb
+    internal class ObterServiceProviderMemDb
     {
         public ServiceProvider Execute()
         {

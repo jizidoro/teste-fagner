@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
 using kpmg.Application.Interfaces;
 using kpmg.Application.Services;
 using kpmg.Core.Helpers.Interfaces;
 using kpmg.Infrastructure.Bases;
-using kpmg.Infrastructure.DataAccess;
 using kpmg.WebApi.Modules;
 using kpmg.WebApi.Modules.Common;
 using kpmg.WebApi.Modules.Common.FeatureFlags;
 using kpmg.WebApi.Modules.Common.Swagger;
-using kpmg.WebApi.UseCases.V1;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+
+#endregion
 
 namespace kpmg.IntegrationTests.Helpers
 {

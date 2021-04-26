@@ -1,25 +1,13 @@
 ﻿#region
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using kpmg.Application.Bases;
-using kpmg.Application.Interfaces;
-using kpmg.Application.Services;
-using kpmg.Core.Helpers.Interfaces;
-using kpmg.Infrastructure.Bases;
 using kpmg.Infrastructure.DataAccess;
 using kpmg.IntegrationTests.Helpers;
 using kpmg.UnitTests.Tests.UsuarioSistemaTests.Bases;
-using kpmg.WebApi.Modules;
-using kpmg.WebApi.Modules.Common;
-using kpmg.WebApi.Modules.Common.FeatureFlags;
-using kpmg.WebApi.Modules.Common.Swagger;
 using kpmg.WebApi.UseCases.V1;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -29,10 +17,10 @@ namespace kpmg.IntegrationTests.Tests.LookupIntegrationTests
 {
     public sealed class ComumControllerTests
     {
-        private readonly ITestOutputHelper _output;
-        private readonly UsuarioSistemaInjectionAppService _usuarioSistemaInjectionAppService = new();
         private readonly ObterServiceProviderDb _obterServiceProviderDb = new();
         private readonly ObterServiceProviderMemDb _obterServiceProviderMemDb = new();
+        private readonly ITestOutputHelper _output;
+        private readonly UsuarioSistemaInjectionAppService _usuarioSistemaInjectionAppService = new();
 
         public ComumControllerTests(ITestOutputHelper output)
         {

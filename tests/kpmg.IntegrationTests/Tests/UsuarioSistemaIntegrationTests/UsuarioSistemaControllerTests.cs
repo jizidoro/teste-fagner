@@ -76,20 +76,21 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
                 .Options;
 
 
-            var teste = new UsuarioSistemaIncluirDto {};
+            var teste = new UsuarioSistemaIncluirDto();
 
 
             await using var context = new KpmgContext(options);
             await context.Database.EnsureCreatedAsync();
             var usuarioSistemaController = ObterUsuarioSistemaController(context);
             var result = await usuarioSistemaController.Incluir(teste);
-            
+
             if (result is OkObjectResult okObjectResult)
-            {   
+            {
                 var actualResultValue = okObjectResult.Value as SingleResultDto<EntityDto>;
                 Assert.NotNull(actualResultValue);
                 Assert.Equal(400, actualResultValue.Codigo);
             }
+
             Assert.Equal(0, context.UsuarioSistemas.Count());
         }
 
@@ -105,7 +106,7 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
             var alteracaoEmail = "novo@email.com";
             var alteracaoSenha = "NovaSenha";
             var alteracaoMatricula = "NovaMatricula";
-            
+
             var teste = new UsuarioSistemaEditarDto
             {
                 Id = 1,
@@ -115,20 +116,20 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
                 Situacao = false,
                 Matricula = alteracaoMatricula
             };
-            
+
             await using var context = new KpmgContext(options);
             await context.Database.EnsureCreatedAsync();
             Utilities.InitializeDbForTests(context);
             var usuarioSistemaController = ObterUsuarioSistemaController(context);
             var result = await usuarioSistemaController.Editar(teste);
-            
+
             if (result is OkObjectResult okObjectResult)
-            {   
+            {
                 var actualResultValue = okObjectResult.Value as SingleResultDto<EntityDto>;
                 Assert.NotNull(actualResultValue);
                 Assert.Equal(200, actualResultValue.Codigo);
             }
-            
+
             var repository = new UsuarioSistemaRepository(context);
             var usuario = await repository.GetById(1);
             Assert.Equal(alteracaoNome, usuario.Nome);
@@ -137,7 +138,7 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
             Assert.Equal(alteracaoMatricula, usuario.Matricula);
             Assert.False(usuario.Situacao);
         }
-        
+
         [Fact]
         public async Task Editar_UsuarioSistema_Erro()
         {
@@ -147,35 +148,33 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
 
             var alteracaoNome = "Novo Nome";
             var alteracaoEmail = "novo@email.com";
-            var alteracaoSenha = "NovaSenha";
             var alteracaoMatricula = "NovaMatricula";
-            
+
             var teste = new UsuarioSistemaEditarDto
             {
                 Id = 1,
                 Nome = alteracaoNome,
-                Situacao = false,
+                Situacao = false
             };
-            
+
             await using var context = new KpmgContext(options);
             await context.Database.EnsureCreatedAsync();
             Utilities.InitializeDbForTests(context);
-            
+
             var usuarioSistemaController = ObterUsuarioSistemaController(context);
             var result = await usuarioSistemaController.Editar(teste);
-            
+
             if (result is OkObjectResult okObjectResult)
-            {   
+            {
                 var actualResultValue = okObjectResult.Value as SingleResultDto<EntityDto>;
                 Assert.NotNull(actualResultValue);
                 Assert.Equal(400, actualResultValue.Codigo);
             }
-            
+
             var repository = new UsuarioSistemaRepository(context);
             var usuario = await repository.GetById(1);
             Assert.NotEqual(alteracaoNome, usuario.Nome);
             Assert.NotEqual(alteracaoEmail, usuario.Email);
-            // Assert.Equal(alteracaoSenha, usuario.Senha);
             Assert.NotEqual(alteracaoMatricula, usuario.Matricula);
             Assert.True(usuario.Situacao);
         }
@@ -196,7 +195,7 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
             usuarioSistema = await repository.GetById(1);
             Assert.NotNull(usuarioSistema);
         }
-        
+
         [Fact]
         public async Task Obter_UsuarioSistema_Controller()
         {
@@ -207,10 +206,10 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
             await using var context = new KpmgContext(options);
             await context.Database.EnsureCreatedAsync();
             Utilities.InitializeDbForTests(context);
-            
+
             var usuarioSistemaController = ObterUsuarioSistemaController(context);
             var result = await usuarioSistemaController.Obter(1);
-            
+
             if (result is OkObjectResult okResult)
             {
                 var actualResultValue = okResult.Value as SingleResultDto<UsuarioSistemaDto>;
@@ -219,7 +218,7 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
                 Assert.NotNull(actualResultValue.Data);
             }
         }
-        
+
         [Fact]
         public async Task Listar_UsuarioSistema()
         {
@@ -230,12 +229,12 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
             await using var context = new KpmgContext(options);
             await context.Database.EnsureCreatedAsync();
             Utilities.InitializeDbForTests(context);
-            
+
             var usuarioSistemaController = ObterUsuarioSistemaController(context);
             var result = await usuarioSistemaController.Listar(null);
-            
+
             if (result is OkObjectResult okObjectResult)
-            {   
+            {
                 var actualResultValue = okObjectResult.Value as PageResultDto<UsuarioSistemaDto>;
                 Assert.NotNull(actualResultValue);
                 Assert.Equal(200, actualResultValue.Codigo);
@@ -254,13 +253,13 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
             await using var context = new KpmgContext(options);
             await context.Database.EnsureCreatedAsync();
             Utilities.InitializeDbForTests(context);
-            
+
             var usuarioSistemaController = ObterUsuarioSistemaController(context);
-            var pagination = new PaginationQuery(1,3);
+            var pagination = new PaginationQuery(1, 3);
             var result = await usuarioSistemaController.Listar(pagination);
-            
+
             if (result is OkObjectResult okObjectResult)
-            {   
+            {
                 var actualResultValue = okObjectResult.Value as PageResultDto<UsuarioSistemaDto>;
                 Assert.NotNull(actualResultValue);
                 Assert.Equal(200, actualResultValue.Codigo);
@@ -275,17 +274,17 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
             var options = new DbContextOptionsBuilder<KpmgContext>()
                 .UseInMemoryDatabase("test_database_memoria_Excluir_usuario_sistema")
                 .Options;
-            
+
             await using var context = new KpmgContext(options);
             await context.Database.EnsureCreatedAsync();
             Utilities.InitializeDbForTests(context);
-            
-            var usuarioSistemaController = ObterUsuarioSistemaController(context);
-           _ = await usuarioSistemaController.Excluir(1);
 
-           var respository = new UsuarioSistemaRepository(context);
-           var usuario = await respository.GetById(1);
-           Assert.Null(usuario);
+            var usuarioSistemaController = ObterUsuarioSistemaController(context);
+            _ = await usuarioSistemaController.Excluir(1);
+
+            var respository = new UsuarioSistemaRepository(context);
+            var usuario = await respository.GetById(1);
+            Assert.Null(usuario);
         }
     }
 }
