@@ -20,7 +20,7 @@ namespace kpmg.WebApi.Modules
     /// <summary>
     ///     Persistence Extensions.
     /// </summary>
-    public static class SqlServerExtensions
+    public static class SQLServerExtensions1
     {
         /// <summary>
         ///     Add Persistence dependencies varying on configuration.
@@ -38,7 +38,7 @@ namespace kpmg.WebApi.Modules
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
-
+            
 
             services.AddDbContext<KpmgContext>(
                 options => options.UseSqlServer(
