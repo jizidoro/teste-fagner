@@ -20,7 +20,7 @@ namespace kpmg.WebApi.Modules
     /// <summary>
     ///     Persistence Extensions.
     /// </summary>
-    public static class SQLServerExtensions1
+    public static class SqlServerExtensions
     {
         /// <summary>
         ///     Add Persistence dependencies varying on configuration.
