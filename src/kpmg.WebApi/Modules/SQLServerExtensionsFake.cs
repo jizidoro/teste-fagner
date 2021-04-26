@@ -20,9 +20,7 @@ namespace kpmg.WebApi.Modules
     /// <summary>
     ///     Persistence Extensions.
     /// </summary>
-#pragma warning disable S101 // Types should be named in PascalCase
     public static class SqlServerExtensionsFake
-#pragma warning restore S101 // Types should be named in PascalCase
     {
         /// <summary>
         ///     Add Persistence dependencies varying on configuration.
