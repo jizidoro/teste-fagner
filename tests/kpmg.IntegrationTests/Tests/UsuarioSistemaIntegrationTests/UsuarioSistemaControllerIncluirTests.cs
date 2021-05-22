@@ -4,17 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using kpmg.Application.Bases;
 using kpmg.Application.Dtos.UsuarioSistemaDtos;
-using kpmg.Application.Queries;
-using kpmg.Domain.Models;
 using kpmg.Infrastructure.DataAccess;
-using kpmg.Infrastructure.Repositories;
-using kpmg.UnitTests.Helpers;
 using kpmg.UnitTests.Tests.UsuarioSistemaTests.Bases;
-using kpmg.WebApi.UseCases.V1.UsuarioSistemaApi;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
-using Xunit.Abstractions;
 
 #endregion
 
@@ -23,7 +17,7 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
     public sealed class UsuarioSistemaControllerIncluirTests
     {
         private readonly UsuarioSistemaInjectionController _usuarioSistemaInjectionController = new();
-        
+
         [Fact]
         public async Task UsuarioSistemaController_Incluir()
         {
@@ -54,7 +48,7 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
         public async Task UsuarioSistemaController_Incluir_Erro()
         {
             var options = new DbContextOptionsBuilder<KpmgContext>()
-                .UseInMemoryDatabase("test_database_memoria_incluir_usuario_sistema")
+                .UseInMemoryDatabase("test_database_memoria_incluir_usuario_sistema_erro")
                 .Options;
 
             var teste = new UsuarioSistemaIncluirDto
@@ -77,13 +71,7 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
                 Assert.Equal(400, actualResultValue.Codigo);
             }
 
-            Assert.True(!context.UsuarioSistemas.Any());
+            Assert.False(context.UsuarioSistemas.Any());
         }
-
-
-
-
-
-
     }
 }
