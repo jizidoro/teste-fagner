@@ -4,7 +4,7 @@ using kpmg.Infrastructure.DataAccess;
 
 #endregion
 
-namespace kpmg.IntegrationTests.Helpers
+namespace kpmg.UnitTests.Helpers
 {
     public class GetContextWithData
     {

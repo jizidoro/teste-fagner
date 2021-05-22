@@ -4,7 +4,6 @@ using kpmg.Application.Interfaces;
 using kpmg.Application.Services;
 using kpmg.Core.Helpers.Interfaces;
 using kpmg.Infrastructure.Bases;
-using kpmg.Infrastructure.DataAccess;
 using kpmg.WebApi.Modules;
 using kpmg.WebApi.Modules.Common;
 using kpmg.WebApi.Modules.Common.FeatureFlags;
@@ -15,11 +14,10 @@ using Newtonsoft.Json;
 
 #endregion
 
-namespace kpmg.IntegrationTests.Helpers
+namespace kpmg.UnitTests.Helpers
 {
-    internal class ObterServiceProviderMemDb
+    public class ObterServiceProviderDb
     {
-        private readonly ContextFactory _contextFactory = new();
         public ServiceProvider Execute()
         {
             var services = new ServiceCollection();
@@ -31,7 +29,7 @@ namespace kpmg.IntegrationTests.Helpers
             services
                 .AddFeatureFlags(configuration)
                 .AddInvalidRequestLogging()
-                .AddSqlServerFake(configuration)
+                .AddSqlServer(configuration)
                 .AddEntityRepository(configuration)
                 .AddHealthChecks(configuration)
                 .AddAuthentication(configuration)

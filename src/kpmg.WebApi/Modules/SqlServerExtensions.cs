@@ -1,13 +1,6 @@
 #region
 
-using System.Collections.Generic;
-using kpmg.Core.AirplaneCore;
-using kpmg.Core.Helpers.Interfaces;
-using kpmg.Core.UsuarioSistemaCore;
-using kpmg.Core.Views.VBaUsuPermissaoCore;
 using kpmg.Infrastructure.DataAccess;
-using kpmg.Infrastructure.Repositories;
-using kpmg.Infrastructure.Repositories.Views;
 using kpmg.WebApi.Modules.Common.FeatureFlags;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

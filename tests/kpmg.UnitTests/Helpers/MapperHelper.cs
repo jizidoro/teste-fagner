@@ -8,7 +8,7 @@ using kpmg.Application.MappingProfiles;
 
 namespace kpmg.UnitTests.Helpers
 {
-    internal class MapperHelper
+    public class MapperHelper
     {
         public static IMapper ConfigMapper()
         {

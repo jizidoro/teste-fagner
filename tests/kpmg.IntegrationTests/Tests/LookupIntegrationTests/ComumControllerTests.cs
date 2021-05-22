@@ -1,10 +1,9 @@
 ﻿#region
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using kpmg.Application.Bases;
 using kpmg.Infrastructure.DataAccess;
-using kpmg.IntegrationTests.Helpers;
+using kpmg.UnitTests.Helpers;
 using kpmg.UnitTests.Tests.UsuarioSistemaTests.Bases;
 using kpmg.WebApi.UseCases.V1;
 using Microsoft.AspNetCore.Mvc;
@@ -48,7 +47,7 @@ namespace kpmg.IntegrationTests.Tests.LookupIntegrationTests
 
             var serviceProvider = _obterServiceProviderMemDb.Execute();
 
-            var context = serviceProvider.GetService<KpmgContext>();
+            var context = ServiceProviderServiceExtensions.GetService<KpmgContext>(serviceProvider);
 
             var baUsuAppService = _usuarioSistemaInjectionAppService.ObterUsuarioSistemaAppService(context, mapper);
 
