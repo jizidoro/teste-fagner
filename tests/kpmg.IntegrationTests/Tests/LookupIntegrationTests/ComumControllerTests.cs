@@ -47,7 +47,7 @@ namespace kpmg.IntegrationTests.Tests.LookupIntegrationTests
 
             var serviceProvider = _obterServiceProviderMemDb.Execute();
 
-            var context = ServiceProviderServiceExtensions.GetService<KpmgContext>(serviceProvider);
+            var context = serviceProvider.GetService<KpmgContext>();
 
             var baUsuAppService = _usuarioSistemaInjectionAppService.ObterUsuarioSistemaAppService(context, mapper);
 

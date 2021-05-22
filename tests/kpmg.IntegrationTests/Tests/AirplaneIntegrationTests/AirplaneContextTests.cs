@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿#region
+
+using System.Threading.Tasks;
 using kpmg.Domain.Models;
 using kpmg.Infrastructure.DataAccess;
 using kpmg.Infrastructure.Repositories;
@@ -6,11 +8,12 @@ using kpmg.UnitTests.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
+#endregion
+
 namespace kpmg.IntegrationTests.Tests.AirplaneIntegrationTests
 {
     public class AirplaneContextTests
     {
-
         [Fact]
         public async Task Airplane_Context()
         {

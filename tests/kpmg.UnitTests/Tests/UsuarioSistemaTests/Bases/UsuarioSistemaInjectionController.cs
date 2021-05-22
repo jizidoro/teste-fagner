@@ -1,12 +1,17 @@
-﻿using kpmg.Infrastructure.DataAccess;
+﻿#region
+
+using kpmg.Infrastructure.DataAccess;
 using kpmg.UnitTests.Helpers;
 using kpmg.WebApi.UseCases.V1.UsuarioSistemaApi;
+
+#endregion
 
 namespace kpmg.UnitTests.Tests.UsuarioSistemaTests.Bases
 {
     public class UsuarioSistemaInjectionController
     {
         private readonly UsuarioSistemaInjectionAppService _usuarioSistemaInjectionAppService = new();
+
         public UsuarioSistemaController ObterUsuarioSistemaController(KpmgContext context)
         {
             var mapper = MapperHelper.ConfigMapper();

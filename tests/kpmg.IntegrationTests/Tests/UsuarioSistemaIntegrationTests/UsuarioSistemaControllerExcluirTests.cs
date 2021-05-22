@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿#region
+
+using System.Threading.Tasks;
 using kpmg.Infrastructure.DataAccess;
 using kpmg.Infrastructure.Repositories;
 using kpmg.UnitTests.Helpers;
@@ -6,12 +8,14 @@ using kpmg.UnitTests.Tests.UsuarioSistemaTests.Bases;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
+#endregion
+
 namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
 {
     public class UsuarioSistemaControllerExcluirTests
     {
         private readonly UsuarioSistemaInjectionController _usuarioSistemaInjectionController = new();
-        
+
         [Fact]
         public async Task UsuarioSistemaController_Excluir()
         {

@@ -4,13 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using kpmg.Application.Bases;
 using kpmg.Application.Dtos.AirplaneDtos;
-using kpmg.Application.Queries;
-using kpmg.Domain.Models;
 using kpmg.Infrastructure.DataAccess;
-using kpmg.Infrastructure.Repositories;
-using kpmg.UnitTests.Helpers;
 using kpmg.UnitTests.Tests.AirplaneTests.Bases;
-using kpmg.WebApi.UseCases.V1.AirplaneApi;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -81,11 +76,5 @@ namespace kpmg.IntegrationTests.Tests.AirplaneIntegrationTests
 
             Assert.Equal(0, context.Airplanes.Count());
         }
-        
-
-
-
-
-
     }
 }

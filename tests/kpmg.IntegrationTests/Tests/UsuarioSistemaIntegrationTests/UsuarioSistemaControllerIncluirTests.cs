@@ -34,7 +34,6 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
 
             var teste = new UsuarioSistemaIncluirDto
             {
-                Id = 1,
                 Nome = "111",
                 Email = "777@teste",
                 Senha = "123456",
@@ -58,9 +57,13 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
                 .UseInMemoryDatabase("test_database_memoria_incluir_usuario_sistema")
                 .Options;
 
-
-            var teste = new UsuarioSistemaIncluirDto();
-
+            var teste = new UsuarioSistemaIncluirDto
+            {
+                Email = "777@teste",
+                Senha = "123456",
+                Situacao = true,
+                Matricula = "123"
+            };
 
             await using var context = new KpmgContext(options);
             await context.Database.EnsureCreatedAsync();
@@ -74,7 +77,7 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
                 Assert.Equal(400, actualResultValue.Codigo);
             }
 
-            Assert.Equal(0, context.UsuarioSistemas.Count());
+            Assert.True(!context.UsuarioSistemas.Any());
         }
 
 

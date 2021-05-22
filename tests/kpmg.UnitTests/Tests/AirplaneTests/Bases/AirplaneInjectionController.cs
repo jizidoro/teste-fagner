@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
 using kpmg.Infrastructure.DataAccess;
 using kpmg.UnitTests.Helpers;
 using kpmg.WebApi.UseCases.V1.AirplaneApi;
+
+#endregion
 
 namespace kpmg.UnitTests.Tests.AirplaneTests.Bases
 {

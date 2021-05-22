@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿#region
+
+using System.Threading.Tasks;
 using kpmg.Application.Bases;
 using kpmg.Application.Dtos.UsuarioSistemaDtos;
 using kpmg.Infrastructure.DataAccess;
@@ -7,6 +9,8 @@ using kpmg.UnitTests.Tests.UsuarioSistemaTests.Bases;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
+
+#endregion
 
 namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
 {
@@ -37,6 +41,5 @@ namespace kpmg.IntegrationTests.Tests.UsuarioSistemaIntegrationTests
                 Assert.Equal(4, actualResultValue.Data.Count);
             }
         }
-
     }
 }
